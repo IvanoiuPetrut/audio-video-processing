@@ -1,0 +1,30 @@
+# Visual Studio files
+.vs/
+bin/
+obj/
+
+# Compiled output
+*.exe
+*.dll
+*.pdb
+*.user
+
+# NuGet Packages
+*.nupkg
+packages/
+*.nuget.targets
+*.nuget.props
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+
+# Windows Forms Designer generated files
+Form*.resx
+Properties/Settings.settings
+Properties/Resources.resx
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
