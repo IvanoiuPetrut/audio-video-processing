@@ -42,15 +42,8 @@ namespace Proiect_audio_video.VideoProcessing
                 return;
             }
 
-            // Disable the play button while the video is playing
-            // playButton.Enabled = false;
-
-            // Start playing the video
             IsReadingFrame = true;
             await Task.Run(() => ReadAllFrames(pictureBox, label, progressBar));
-
-            // Re-enable the play button when the video is finished
-            // playButton.Enabled = true;
         }
 
         public void StopVideo()

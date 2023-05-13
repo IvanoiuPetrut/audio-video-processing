@@ -60,8 +60,13 @@
             pictureBoxVideoStream.Location = new Point(12, 39);
             pictureBoxVideoStream.Name = "pictureBoxVideoStream";
             pictureBoxVideoStream.Size = new Size(675, 468);
+            pictureBoxVideoStream.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxVideoStream.TabIndex = 1;
             pictureBoxVideoStream.TabStop = false;
+            pictureBoxVideoStream.Paint += pictureBoxVideoStream_Paint;
+            pictureBoxVideoStream.MouseDown += pictureBoxVideoStream_MouseDown;
+            pictureBoxVideoStream.MouseMove += pictureBoxVideoStream_MouseMove;
+            pictureBoxVideoStream.MouseUp += pictureBoxVideoStream_MouseUp;
             // 
             // progressBarVideoStream
             // 
@@ -102,8 +107,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
-            Text = "Form1";
-            Load += Form1_Load;
+            Text = "Editare Audio-Video";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).EndInit();
