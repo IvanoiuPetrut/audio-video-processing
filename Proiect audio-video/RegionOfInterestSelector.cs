@@ -10,7 +10,6 @@ namespace Proiect_audio_video
     {
         private bool isMousePressed;
         private Point startPoint;
-        private Point endPoint;
         private Rectangle rect;
 
         public RegionOfInterestSelector()
@@ -42,7 +41,6 @@ namespace Proiect_audio_video
         public void EndSelection(Point endPoint)
         {
             isMousePressed = false;
-            this.endPoint = endPoint;
         }
         public void DrawSelection(Graphics g)
         {

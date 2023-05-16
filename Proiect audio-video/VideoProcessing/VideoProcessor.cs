@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Emgu.CV.Structure;
 
 namespace Proiect_audio_video.VideoProcessing
 {
@@ -15,6 +16,18 @@ namespace Proiect_audio_video.VideoProcessing
         private double Fps;
         private int FrameNo;
         private bool IsReadingFrame;
+        private Rectangle ROI;
+        private ImageProcessing imageProcessing;
+        public VideoProcessor(int videoStreamWidth, int videoStreamHeight)
+        {
+            imageProcessing = new ImageProcessing();
+            ROI = new Rectangle(0, 0, videoStreamWidth, videoStreamHeight);
+        }
+
+        public void SetROI(Rectangle roi)
+        {
+            ROI = roi;
+        }
         public void LoadVideo(PictureBox pictureBox, ProgressBar progressBar)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -51,6 +64,20 @@ namespace Proiect_audio_video.VideoProcessing
             IsReadingFrame = false;
         }
 
+        private delegate Image<Bgr, byte> ImageProcessingFunction(Image<Bgr, byte> image);
+        private Mat processFrame(Mat frame, ImageProcessingFunction imageProcessingFunction)
+        {
+            Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
+            image.ROI = ROI;
+            var imageROI = image.Copy();
+            var newImageROI = imageProcessingFunction(imageROI);
+            image.ROI = Rectangle.Empty;
+            image.ROI = ROI;
+            newImageROI.CopyTo(image);
+            image.ROI = Rectangle.Empty;
+            return image.Mat;
+        }
+
         private async void ReadAllFrames(PictureBox pictureBox, Label label, ProgressBar progressBar)
         {
             Mat m = new Mat();
@@ -58,7 +85,14 @@ namespace Proiect_audio_video.VideoProcessing
             {
                 FrameNo += 1;
                 var mat = capture?.QueryFrame();
-                pictureBox.Image = mat.ToBitmap();
+                if (mat == null)
+                {
+                    return;
+                }
+                var image = processFrame(mat, imageProcessing.ConvertToGrayscale);
+
+                pictureBox.Image = image.ToBitmap();
+
                 await Task.Delay(1000 / Convert.ToInt16(Fps));
                 label.Invoke((MethodInvoker)delegate ()
                 {

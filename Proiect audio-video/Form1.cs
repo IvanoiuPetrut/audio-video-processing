@@ -2,7 +2,7 @@ namespace Proiect_audio_video
 {
     public partial class Form1 : Form
     {
-        VideoProcessing.VideoProcessor videoProcessor = new VideoProcessing.VideoProcessor();
+        VideoProcessing.VideoProcessor videoProcessor;
         RegionOfInterestSelector ROI = new RegionOfInterestSelector();
         bool isVideoPlaying = false;
         public Form1()
@@ -50,11 +50,18 @@ namespace Proiect_audio_video
         private void pictureBoxVideoStream_MouseUp(object sender, MouseEventArgs e)
         {
             ROI.EndSelection(e.Location);
+            videoProcessor.SetROI(ROI.Rect);
+
         }
 
         private void pictureBoxVideoStream_Paint(object sender, PaintEventArgs e)
         {
             ROI.DrawSelection(e.Graphics);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            videoProcessor = new VideoProcessing.VideoProcessor(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
         }
     }
 }

@@ -34,6 +34,7 @@
             progressBarVideoStream = new ProgressBar();
             btnPlayVideo = new Button();
             labelVideoStreamFrameCount = new Label();
+            labelRoi = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             SuspendLayout();
@@ -95,11 +96,21 @@
             labelVideoStreamFrameCount.TabIndex = 4;
             labelVideoStreamFrameCount.Text = "FPS Count";
             // 
+            // labelRoi
+            // 
+            labelRoi.AutoSize = true;
+            labelRoi.Location = new Point(720, 92);
+            labelRoi.Name = "labelRoi";
+            labelRoi.Size = new Size(38, 15);
+            labelRoi.TabIndex = 5;
+            labelRoi.Text = "label1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(983, 574);
+            Controls.Add(labelRoi);
             Controls.Add(labelVideoStreamFrameCount);
             Controls.Add(btnPlayVideo);
             Controls.Add(progressBarVideoStream);
@@ -108,6 +119,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Editare Audio-Video";
+            Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).EndInit();
@@ -123,5 +135,6 @@
         private ProgressBar progressBarVideoStream;
         private Button btnPlayVideo;
         private Label labelVideoStreamFrameCount;
+        private Label labelRoi;
     }
 }
