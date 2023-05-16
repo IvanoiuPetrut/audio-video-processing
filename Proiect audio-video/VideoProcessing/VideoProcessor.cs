@@ -9,6 +9,8 @@ using Emgu.CV.Structure;
 
 namespace Proiect_audio_video.VideoProcessing
 {
+    public delegate Image<Bgr, byte> ImageProcessingFunction(Image<Bgr, byte> image);
+
     public class VideoProcessor
     {
         private VideoCapture? capture;
@@ -18,6 +20,7 @@ namespace Proiect_audio_video.VideoProcessing
         private bool IsReadingFrame;
         private Rectangle ROI;
         private ImageProcessing imageProcessing;
+        private ImageProcessingFunction processingFunction;
         public VideoProcessor(int videoStreamWidth, int videoStreamHeight)
         {
             imageProcessing = new ImageProcessing();
@@ -27,6 +30,10 @@ namespace Proiect_audio_video.VideoProcessing
         public void SetROI(Rectangle roi)
         {
             ROI = roi;
+        }
+        public void SetProcessingFunction(ImageProcessingFunction function)
+        {
+            processingFunction = function;
         }
         public void LoadVideo(PictureBox pictureBox, ProgressBar progressBar)
         {
@@ -64,7 +71,6 @@ namespace Proiect_audio_video.VideoProcessing
             IsReadingFrame = false;
         }
 
-        private delegate Image<Bgr, byte> ImageProcessingFunction(Image<Bgr, byte> image);
         private Mat processFrame(Mat frame, ImageProcessingFunction imageProcessingFunction)
         {
             Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
@@ -89,9 +95,16 @@ namespace Proiect_audio_video.VideoProcessing
                 {
                     return;
                 }
-                var image = processFrame(mat, imageProcessing.ConvertToGrayscale);
+                if (processingFunction == null)
+                {
+                    m = mat;
+                }
+                else
+                {
+                    m = processFrame(mat, processingFunction);
+                }
 
-                pictureBox.Image = image.ToBitmap();
+                pictureBox.Image = m.ToBitmap();
 
                 await Task.Delay(1000 / Convert.ToInt16(Fps));
                 label.Invoke((MethodInvoker)delegate ()

@@ -34,7 +34,11 @@
             progressBarVideoStream = new ProgressBar();
             btnPlayVideo = new Button();
             labelVideoStreamFrameCount = new Label();
-            labelRoi = new Label();
+            radioButtonGrayscale = new RadioButton();
+            radioButtonExtractRed = new RadioButton();
+            radioButtonExtractGreen = new RadioButton();
+            radioButtonExtractBlue = new RadioButton();
+            radioButtonCarousel = new RadioButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             SuspendLayout();
@@ -96,21 +100,72 @@
             labelVideoStreamFrameCount.TabIndex = 4;
             labelVideoStreamFrameCount.Text = "FPS Count";
             // 
-            // labelRoi
+            // radioButtonGrayscale
             // 
-            labelRoi.AutoSize = true;
-            labelRoi.Location = new Point(720, 92);
-            labelRoi.Name = "labelRoi";
-            labelRoi.Size = new Size(38, 15);
-            labelRoi.TabIndex = 5;
-            labelRoi.Text = "label1";
+            radioButtonGrayscale.AutoSize = true;
+            radioButtonGrayscale.Location = new Point(710, 112);
+            radioButtonGrayscale.Name = "radioButtonGrayscale";
+            radioButtonGrayscale.Size = new Size(75, 19);
+            radioButtonGrayscale.TabIndex = 6;
+            radioButtonGrayscale.TabStop = true;
+            radioButtonGrayscale.Text = "Grayscale";
+            radioButtonGrayscale.UseVisualStyleBackColor = true;
+            radioButtonGrayscale.CheckedChanged += radioButtonGrayscale_CheckedChanged;
+            // 
+            // radioButtonExtractRed
+            // 
+            radioButtonExtractRed.AutoSize = true;
+            radioButtonExtractRed.Location = new Point(710, 137);
+            radioButtonExtractRed.Name = "radioButtonExtractRed";
+            radioButtonExtractRed.Size = new Size(84, 19);
+            radioButtonExtractRed.TabIndex = 7;
+            radioButtonExtractRed.TabStop = true;
+            radioButtonExtractRed.Text = "Extract Red";
+            radioButtonExtractRed.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonExtractGreen
+            // 
+            radioButtonExtractGreen.AutoSize = true;
+            radioButtonExtractGreen.Location = new Point(710, 162);
+            radioButtonExtractGreen.Name = "radioButtonExtractGreen";
+            radioButtonExtractGreen.Size = new Size(95, 19);
+            radioButtonExtractGreen.TabIndex = 8;
+            radioButtonExtractGreen.TabStop = true;
+            radioButtonExtractGreen.Text = "Extract Green";
+            radioButtonExtractGreen.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonExtractBlue
+            // 
+            radioButtonExtractBlue.AutoSize = true;
+            radioButtonExtractBlue.Location = new Point(710, 187);
+            radioButtonExtractBlue.Name = "radioButtonExtractBlue";
+            radioButtonExtractBlue.Size = new Size(87, 19);
+            radioButtonExtractBlue.TabIndex = 9;
+            radioButtonExtractBlue.TabStop = true;
+            radioButtonExtractBlue.Text = "Extract Blue";
+            radioButtonExtractBlue.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCarousel
+            // 
+            radioButtonCarousel.AutoSize = true;
+            radioButtonCarousel.Location = new Point(710, 212);
+            radioButtonCarousel.Name = "radioButtonCarousel";
+            radioButtonCarousel.Size = new Size(71, 19);
+            radioButtonCarousel.TabIndex = 10;
+            radioButtonCarousel.TabStop = true;
+            radioButtonCarousel.Text = "Carousel";
+            radioButtonCarousel.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(983, 574);
-            Controls.Add(labelRoi);
+            Controls.Add(radioButtonCarousel);
+            Controls.Add(radioButtonExtractBlue);
+            Controls.Add(radioButtonExtractGreen);
+            Controls.Add(radioButtonExtractRed);
+            Controls.Add(radioButtonGrayscale);
             Controls.Add(labelVideoStreamFrameCount);
             Controls.Add(btnPlayVideo);
             Controls.Add(progressBarVideoStream);
@@ -135,6 +190,10 @@
         private ProgressBar progressBarVideoStream;
         private Button btnPlayVideo;
         private Label labelVideoStreamFrameCount;
-        private Label labelRoi;
+        private RadioButton radioButtonGrayscale;
+        private RadioButton radioButtonExtractRed;
+        private RadioButton radioButtonExtractGreen;
+        private RadioButton radioButtonExtractBlue;
+        private RadioButton radioButtonCarousel;
     }
 }
