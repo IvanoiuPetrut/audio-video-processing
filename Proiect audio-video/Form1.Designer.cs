@@ -122,6 +122,7 @@
             radioButtonExtractRed.TabStop = true;
             radioButtonExtractRed.Text = "Extract Red";
             radioButtonExtractRed.UseVisualStyleBackColor = true;
+            radioButtonExtractRed.CheckedChanged += radioButtonExtractRed_CheckedChanged;
             // 
             // radioButtonExtractGreen
             // 
@@ -133,6 +134,7 @@
             radioButtonExtractGreen.TabStop = true;
             radioButtonExtractGreen.Text = "Extract Green";
             radioButtonExtractGreen.UseVisualStyleBackColor = true;
+            radioButtonExtractGreen.CheckedChanged += radioButtonExtractGreen_CheckedChanged;
             // 
             // radioButtonExtractBlue
             // 
@@ -144,6 +146,7 @@
             radioButtonExtractBlue.TabStop = true;
             radioButtonExtractBlue.Text = "Extract Blue";
             radioButtonExtractBlue.UseVisualStyleBackColor = true;
+            radioButtonExtractBlue.CheckedChanged += radioButtonExtractBlue_CheckedChanged;
             // 
             // radioButtonCarousel
             // 

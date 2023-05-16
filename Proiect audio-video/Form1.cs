@@ -73,5 +73,29 @@ namespace Proiect_audio_video
                 videoProcessor.SetProcessingFunction(imageProcessing.ConvertToGrayscale);
             }
         }
+
+        private void radioButtonExtractRed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonExtractRed.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.ExtractRed);
+            }
+        }
+
+        private void radioButtonExtractGreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonExtractGreen.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.ExtractGreen);
+            }
+        }
+
+        private void radioButtonExtractBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonExtractBlue.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.ExtractBlue);
+            }
+        }
     }
 }
