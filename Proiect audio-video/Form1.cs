@@ -1,3 +1,7 @@
+using Emgu.CV.Structure;
+using Emgu.CV.CvEnum;
+using Emgu.CV;
+
 namespace Proiect_audio_video
 {
     public partial class Form1 : Form
@@ -11,10 +15,25 @@ namespace Proiect_audio_video
             InitializeComponent();
         }
 
+        private async Task StartVideoProcessing()
+        {
+            Progress<VideoProcessingProgress> progress = new Progress<VideoProcessingProgress>();
+            progress.ProgressChanged += (sender, package) =>
+            {
+                pictureBoxVideoStream.Image = package.Frame.ToBitmap();
+            };
+
+            await videoProcessor.PlayVideo(progress, labelVideoStreamFrameCount, progressBarVideoStream);
+        }
+
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoProcessor.LoadVideo(pictureBoxVideoStream, progressBarVideoStream);
         }
+
+        Progress<Mat> progress = new Progress<Mat>();
+
+
 
         private async void btnPlayVideo_Click(object sender, EventArgs e)
         {
@@ -28,7 +47,7 @@ namespace Proiect_audio_video
             {
                 isVideoPlaying = true;
                 btnPlayVideo.Text = "Stop Video";
-                await videoProcessor.PlayVideo(pictureBoxVideoStream, labelVideoStreamFrameCount, progressBarVideoStream);
+                await StartVideoProcessing();
             }
         }
 
@@ -95,6 +114,22 @@ namespace Proiect_audio_video
             if (radioButtonExtractBlue.Checked)
             {
                 videoProcessor.SetProcessingFunction(imageProcessing.ExtractBlue);
+            }
+        }
+
+        private void radioButtonCarousel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonCarousel.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.Carousel);
+            }
+        }
+
+        private void radioButtonBrightness_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBrightness.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.BrightnessCorrection);
             }
         }
     }

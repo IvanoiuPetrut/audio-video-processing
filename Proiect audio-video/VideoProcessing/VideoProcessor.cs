@@ -18,6 +18,7 @@ namespace Proiect_audio_video.VideoProcessing
         private double Fps;
         private int FrameNo;
         private bool IsReadingFrame;
+        public bool playCarousel = false;
         private Rectangle ROI;
         private ImageProcessing imageProcessing;
         private ImageProcessingFunction processingFunction;
@@ -55,7 +56,7 @@ namespace Proiect_audio_video.VideoProcessing
             }
         }
 
-        public async Task PlayVideo(PictureBox pictureBox, Label label, ProgressBar progressBar)
+        public async Task PlayVideo(IProgress<VideoProcessingProgress> progress, Label label, ProgressBar progressBar)
         {
             if (capture == null)
             {
@@ -63,7 +64,7 @@ namespace Proiect_audio_video.VideoProcessing
             }
 
             IsReadingFrame = true;
-            await Task.Run(() => ReadAllFrames(pictureBox, label, progressBar));
+            await Task.Run(() => ReadAllFrames(progress, label, progressBar));
         }
 
         public void StopVideo()
@@ -71,12 +72,31 @@ namespace Proiect_audio_video.VideoProcessing
             IsReadingFrame = false;
         }
 
+        public Image<Bgr, byte> Carousel(Image<Bgr, byte> image, int frame)
+        {
+            int step = frame % 4;
+            switch (step)
+            {
+                case 0:
+                    return imageProcessing.ExtractRed(image);
+                case 1:
+                    return imageProcessing.ExtractGreen(image);
+                case 2:
+                    return imageProcessing.ExtractBlue(image);
+                case 3:
+                    return imageProcessing.ConvertToGrayscale(image);
+                default:
+                    return image;
+            }
+        }
+
         private Mat processFrame(Mat frame, ImageProcessingFunction imageProcessingFunction)
         {
             Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
             image.ROI = ROI;
             var imageROI = image.Copy();
-            var newImageROI = imageProcessingFunction(imageROI);
+            Image<Bgr, byte> newImageROI;
+            newImageROI = imageProcessingFunction(imageROI);
             image.ROI = Rectangle.Empty;
             image.ROI = ROI;
             newImageROI.CopyTo(image);
@@ -84,12 +104,13 @@ namespace Proiect_audio_video.VideoProcessing
             return image.Mat;
         }
 
-        private async void ReadAllFrames(PictureBox pictureBox, Label label, ProgressBar progressBar)
+        private async void ReadAllFrames(IProgress<VideoProcessingProgress> progress, Label label, ProgressBar progressBar)
         {
             Mat m = new Mat();
             while (IsReadingFrame == true && FrameNo < TotalFrame)
             {
                 FrameNo += 1;
+                imageProcessing.SetFrameNumber(FrameNo);
                 var mat = capture?.QueryFrame();
                 if (mat == null)
                 {
@@ -104,7 +125,11 @@ namespace Proiect_audio_video.VideoProcessing
                     m = processFrame(mat, processingFunction);
                 }
 
-                pictureBox.Image = m.ToBitmap();
+                progress.Report(new VideoProcessingProgress()
+                {
+                    Frame = m,
+                    FrameNo = FrameNo
+                });
 
                 await Task.Delay(1000 / Convert.ToInt16(Fps));
                 label.Invoke((MethodInvoker)delegate ()
