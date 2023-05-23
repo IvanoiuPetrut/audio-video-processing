@@ -20,11 +20,10 @@ namespace Proiect_audio_video.VideoProcessing
         private bool IsReadingFrame;
         public bool playCarousel = false;
         private Rectangle ROI;
-        private ImageProcessing imageProcessing;
         private ImageProcessingFunction processingFunction;
+
         public VideoProcessor(int videoStreamWidth, int videoStreamHeight)
         {
-            imageProcessing = new ImageProcessing();
             ROI = new Rectangle(0, 0, videoStreamWidth, videoStreamHeight);
         }
 
@@ -72,24 +71,6 @@ namespace Proiect_audio_video.VideoProcessing
             IsReadingFrame = false;
         }
 
-        public Image<Bgr, byte> Carousel(Image<Bgr, byte> image, int frame)
-        {
-            int step = frame % 4;
-            switch (step)
-            {
-                case 0:
-                    return imageProcessing.ExtractRed(image);
-                case 1:
-                    return imageProcessing.ExtractGreen(image);
-                case 2:
-                    return imageProcessing.ExtractBlue(image);
-                case 3:
-                    return imageProcessing.ConvertToGrayscale(image);
-                default:
-                    return image;
-            }
-        }
-
         private Mat processFrame(Mat frame, ImageProcessingFunction imageProcessingFunction)
         {
             Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
@@ -110,7 +91,6 @@ namespace Proiect_audio_video.VideoProcessing
             while (IsReadingFrame == true && FrameNo < TotalFrame)
             {
                 FrameNo += 1;
-                imageProcessing.SetFrameNumber(FrameNo);
                 var mat = capture?.QueryFrame();
                 if (mat == null)
                 {

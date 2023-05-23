@@ -12,8 +12,23 @@ namespace Proiect_audio_video
 {
     public class ImageProcessing
     {
-        private int frameNumber { get; set; }
-        private int processValue { get; set; }
+        private int frameNumber;
+        private double processValue;
+
+        public ImageProcessing()
+        {
+            frameNumber = 0;
+            processValue = 30;
+        }
+        public void SetFrameNumber(int frameNumber)
+        {
+            this.frameNumber = frameNumber;
+        }
+
+        public void SetProcessValue(double processValue)
+        {
+            this.processValue = processValue;
+        }
         public Image<Bgr, byte> ConvertToGrayscale(Image<Bgr, byte> image)
         {
             return image.Convert<Gray, byte>().Convert<Bgr, byte>();
@@ -90,7 +105,6 @@ namespace Proiect_audio_video
         }
         public Image<Bgr, byte> BrightnessCorrection(Image<Bgr, byte> image)
         {
-            int value = 30;
             Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
             image.CopyTo(outputImage);
             var data = outputImage.Data;
@@ -98,12 +112,29 @@ namespace Proiect_audio_video
             {
                 for (int j = 0; j < outputImage.Height; j++)
                 {
-                    data[j, i, 0] = (byte)Math.Min(255, data[j, i, 0] + value);
-                    data[j, i, 1] = (byte)Math.Min(255, data[j, i, 1] + value);
-                    data[j, i, 2] = (byte)Math.Min(255, data[j, i, 2] + value);
+                    data[j, i, 0] = (byte)Math.Min(255, data[j, i, 0] + processValue);
+                    data[j, i, 1] = (byte)Math.Min(255, data[j, i, 1] + processValue);
+                    data[j, i, 2] = (byte)Math.Min(255, data[j, i, 2] + processValue);
                 }
             }
 
+            return outputImage;
+        }
+
+        public Image<Bgr, byte> GammaCorrection(Image<Bgr, byte> image)
+        {
+            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
+            image.CopyTo(outputImage);
+            var data = outputImage.Data;
+            for (int i = 0; i < outputImage.Width; i++)
+            {
+                for (int j = 0; j < outputImage.Height; j++)
+                {
+                    data[j, i, 0] = (byte)Math.Min(255, Math.Pow(data[j, i, 0], 1.0 / processValue));
+                    data[j, i, 1] = (byte)Math.Min(255, Math.Pow(data[j, i, 1], 1.0 / processValue));
+                    data[j, i, 2] = (byte)Math.Min(255, Math.Pow(data[j, i, 2], 1.0 / processValue));
+                }
+            }
             return outputImage;
         }
     }

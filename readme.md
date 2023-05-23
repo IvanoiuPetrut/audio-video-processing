@@ -3,7 +3,7 @@
 3. ✔ Convert ROI to grayscale
    Extract only a specific color from ROI (see only R or G or B component)
 4. ✔ Make video ROI in "carousel" mode: first frame convert to gray scale, second frame see only R component, third frame see only G component, fourth frame see only B component, fifth frame again grayscale, etc..
-5. Apply brightness correction / gamma corrections ROI
+5. ✔ Apply brightness correction / gamma corrections ROI
 6. Apply background subtraction to ROI and replace it with a specified picture
 7. Adjust color space/map on ROI
 8. Resize/Rotate on ROI

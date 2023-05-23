@@ -21,6 +21,7 @@ namespace Proiect_audio_video
             progress.ProgressChanged += (sender, package) =>
             {
                 pictureBoxVideoStream.Image = package.Frame.ToBitmap();
+                imageProcessing.SetFrameNumber(package.FrameNo);
             };
 
             await videoProcessor.PlayVideo(progress, labelVideoStreamFrameCount, progressBarVideoStream);
@@ -130,6 +131,22 @@ namespace Proiect_audio_video
             if (radioButtonBrightness.Checked)
             {
                 videoProcessor.SetProcessingFunction(imageProcessing.BrightnessCorrection);
+            }
+        }
+
+        private void radioButtonGammaCorrection_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonGammaCorrection.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.GammaCorrection);
+            }
+        }
+
+        private void textBoxProcessValue_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxProcessValue.Text != "")
+            {
+                imageProcessing.SetProcessValue(double.Parse(textBoxProcessValue.Text));
             }
         }
     }
