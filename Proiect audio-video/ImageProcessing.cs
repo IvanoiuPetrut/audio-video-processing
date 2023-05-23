@@ -15,11 +15,17 @@ namespace Proiect_audio_video
     {
         private int frameNumber;
         private double processValue;
+        private double redValue;
+        private double greenValue;
+        private double blueValue;
 
         public ImageProcessing()
         {
             frameNumber = 0;
             processValue = 30;
+            redValue = 1.0;
+            greenValue = 1.0;
+            blueValue = 1.0;
         }
         public void SetFrameNumber(int frameNumber)
         {
@@ -29,6 +35,21 @@ namespace Proiect_audio_video
         public void SetProcessValue(double processValue)
         {
             this.processValue = processValue;
+        }
+
+        public void SetRedValue(int redValue)
+        {
+            this.redValue = redValue;
+        }
+
+        public void SetGreenValue(double greenValue)
+        {
+            this.greenValue = greenValue;
+        }
+
+        public void SetBlueValue(double blueValue)
+        {
+            this.blueValue = blueValue;
         }
         public Image<Bgr, byte> ConvertToGrayscale(Image<Bgr, byte> image)
         {
@@ -116,6 +137,23 @@ namespace Proiect_audio_video
         {
             image._GammaCorrect(processValue);
             return image;
+        }
+
+        public Image<Bgr, byte> AdjustColorSpace(Image<Bgr, byte> image)
+        {
+            Image<Bgr, Byte> outputImage = new Image<Bgr, byte>(image.Size);
+            image.CopyTo(outputImage);
+            var data = outputImage.Data;
+            for (int i = 0; i < outputImage.Width; i++)
+            {
+                for (int j = 0; j < outputImage.Height; j++)
+                {
+                    data[j, i, 0] = (byte)(data[j, i, 0] * blueValue);
+                    data[j, i, 1] = (byte)(data[j, i, 1] * greenValue);
+                    data[j, i, 2] = (byte)(data[j, i, 2] * redValue);
+                }
+            }
+            return outputImage;
         }
     }
 }
