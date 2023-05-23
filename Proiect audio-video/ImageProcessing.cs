@@ -18,6 +18,8 @@ namespace Proiect_audio_video
         private double redValue;
         private double greenValue;
         private double blueValue;
+        private double scaleFactor;
+        private double rotationAngle;
 
         public ImageProcessing()
         {
@@ -154,6 +156,15 @@ namespace Proiect_audio_video
                 }
             }
             return outputImage;
+        }
+
+        public Image<Bgr, byte> Scale(Image<Bgr, byte> image)
+        {
+            scaleFactor = processValue;
+            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
+            image.Resize(1.25, Emgu.CV.CvEnum.Inter.Cubic);
+            image.CopyTo(outputImage);
+            return image;
         }
     }
 }

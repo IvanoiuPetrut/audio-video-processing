@@ -5,8 +5,8 @@
 4. ✔ Make video ROI in "carousel" mode: first frame convert to gray scale, second frame see only R component, third frame see only G component, fourth frame see only B component, fifth frame again grayscale, etc..
 5. ✔ Apply brightness correction / gamma corrections ROI
 6. Apply background subtraction to ROI and replace it with a specified picture
-7. Adjust color space/map on ROI
-8. Resize/Rotate on ROI
+7. ✔ Adjust color space/map on ROI
+8. ✔ Resize/Rotate on ROI
 9. Button to select 2 videos and unite them with the following transitions:
 10. cross-dissolve (addWeigthed last 10 frames from previous video with first 10 from next Video)
 11. Video combining - play first video and on top of it (in a smaller window) play the second video (video in video)

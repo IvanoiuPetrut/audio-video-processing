@@ -50,6 +50,7 @@
             trackBarGreen = new TrackBar();
             trackBarBlue = new TrackBar();
             radioButtonAdjustColorSpace = new RadioButton();
+            radioButtonScale = new RadioButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRed).BeginInit();
@@ -298,11 +299,25 @@
             radioButtonAdjustColorSpace.UseVisualStyleBackColor = true;
             radioButtonAdjustColorSpace.CheckedChanged += radioButtonAdjustColorSpace_CheckedChanged;
             // 
+            // radioButtonScale
+            // 
+            radioButtonScale.AutoSize = true;
+            radioButtonScale.Location = new Point(812, 587);
+            radioButtonScale.Margin = new Padding(3, 4, 3, 4);
+            radioButtonScale.Name = "radioButtonScale";
+            radioButtonScale.Size = new Size(65, 24);
+            radioButtonScale.TabIndex = 22;
+            radioButtonScale.TabStop = true;
+            radioButtonScale.Text = "Scale";
+            radioButtonScale.UseVisualStyleBackColor = true;
+            radioButtonScale.CheckedChanged += radioButtonScale_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1123, 765);
+            Controls.Add(radioButtonScale);
             Controls.Add(radioButtonAdjustColorSpace);
             Controls.Add(trackBarBlue);
             Controls.Add(trackBarGreen);
@@ -327,7 +342,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
-            Text = "Editare Audio-Video";
+            Text = "34eswd";
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -363,5 +378,6 @@
         private TrackBar trackBarGreen;
         private TrackBar trackBarBlue;
         private RadioButton radioButtonAdjustColorSpace;
+        private RadioButton radioButtonScale;
     }
 }

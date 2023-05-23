@@ -172,5 +172,13 @@ namespace Proiect_audio_video
         {
             imageProcessing.SetBlueValue(trackBarBlue.Value / 10);
         }
+
+        private void radioButtonScale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonScale.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.Scale);
+            }
+        }
     }
 }
