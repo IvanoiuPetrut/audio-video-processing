@@ -101,6 +101,7 @@
             progressBarVideoStream.Name = "progressBarVideoStream";
             progressBarVideoStream.Size = new Size(675, 23);
             progressBarVideoStream.TabIndex = 2;
+            progressBarVideoStream.Click += progressBarVideoStream_Click;
             // 
             // btnPlayVideo
             // 

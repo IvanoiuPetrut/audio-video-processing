@@ -35,6 +35,11 @@ namespace Proiect_audio_video.VideoProcessing
         {
             processingFunction = function;
         }
+        public void SetFrameNumber(int frameNumber)
+        {
+            FrameNo = frameNumber;
+            var a = FrameNo;
+        }
         public void LoadVideo()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -84,6 +89,7 @@ namespace Proiect_audio_video.VideoProcessing
             while (IsReadingFrame == true && FrameNo < TotalFrame)
             {
                 FrameNo += 1;
+                var b = FrameNo;
                 var mat = capture?.QueryFrame();
                 if (mat == null)
                 {

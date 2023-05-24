@@ -209,5 +209,15 @@ namespace Proiect_audio_video
                 videoProcessor.SetProcessingFunction(imageProcessing.Rotate);
             }
         }
+
+        private void progressBarVideoStream_Click(object sender, EventArgs e)
+        {
+            var mousePosition = MousePosition;
+            mousePosition = progressBarVideoStream.PointToClient(mousePosition);
+            var value = mousePosition.X * progressBarVideoStream.Maximum / progressBarVideoStream.Width;
+            progressBarVideoStream.Value = value;
+            labelVideoStreamFrameCount.Text = $"Frame: {progressBarVideoStream.Value}/{progressBarVideoStream.Maximum}";
+            videoProcessor.SetFrameNumber(progressBarVideoStream.Value);
+        }
     }
 }
