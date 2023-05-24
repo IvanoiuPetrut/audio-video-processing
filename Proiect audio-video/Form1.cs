@@ -193,5 +193,18 @@ namespace Proiect_audio_video
         {
             imageProcessing.SetScaleFactor((double)numericUpDownScaleFactor.Value);
         }
+
+        private void numericUpRotateFactor_ValueChanged(object sender, EventArgs e)
+        {
+            imageProcessing.SetRotationAngle((double)numericUpRotateFactor.Value);
+        }
+
+        private void radioButtonRotate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonRotate.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.Rotate);
+            }
+        }
     }
 }

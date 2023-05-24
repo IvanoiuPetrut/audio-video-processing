@@ -16,13 +16,13 @@ namespace Proiect_audio_video
         private int frameNumber;
         private double processValue;
         private double scaleFactor;
+        private double rotationAngle;
         private VideoCapture _cameraCapture;
         private Image<Bgr, byte> newBackgroundImage;
         private IBackgroundSubtractor _fgDetector;
         private double redValue;
         private double greenValue;
         private double blueValue;
-        private double rotationAngle;
 
         public ImageProcessing()
         {
@@ -49,6 +49,11 @@ namespace Proiect_audio_video
         public void SetScaleFactor(double scaleFactor)
         {
             this.scaleFactor = scaleFactor;
+        }
+
+        public void SetRotationAngle(double rotationAngle)
+        {
+            this.rotationAngle = rotationAngle;
         }
 
         public void SetRedValue(int redValue)
@@ -204,6 +209,14 @@ namespace Proiect_audio_video
 
             resizedImage.CopyTo(outputImage);
 
+            return outputImage;
+        }
+
+        public Image<Bgr, byte> Rotate(Image<Bgr, byte> image)
+        {
+            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
+            image.CopyTo(outputImage);
+            outputImage = outputImage.Rotate(rotationAngle, new Bgr(0, 0, 0), true);
             return outputImage;
         }
     }
