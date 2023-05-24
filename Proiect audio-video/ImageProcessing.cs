@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV.Reg;
+using System.Windows.Forms;
 
 namespace Proiect_audio_video
 {
@@ -18,6 +19,10 @@ namespace Proiect_audio_video
         private VideoCapture _cameraCapture;
         private Image<Bgr, byte> newBackgroundImage;
         private IBackgroundSubtractor _fgDetector;
+        private double redValue;
+        private double greenValue;
+        private double blueValue;
+        private double rotationAngle;
 
         public ImageProcessing()
         {
@@ -27,6 +32,9 @@ namespace Proiect_audio_video
             _cameraCapture = new VideoCapture();
             _fgDetector = new BackgroundSubtractorMOG2();
             //Application.Idle += ProcessFrame;
+            redValue = 1.0;
+            greenValue = 1.0;
+            blueValue = 1.0;
         }
         public void SetFrameNumber(int frameNumber)
         {
@@ -41,6 +49,21 @@ namespace Proiect_audio_video
         public void SetScaleFactor(double scaleFactor)
         {
             this.scaleFactor = scaleFactor;
+        }
+
+        public void SetRedValue(int redValue)
+        {
+            this.redValue = redValue;
+        }
+
+        public void SetGreenValue(double greenValue)
+        {
+            this.greenValue = greenValue;
+        }
+
+        public void SetBlueValue(double blueValue)
+        {
+            this.blueValue = blueValue;
         }
         public Image<Bgr, byte> ConvertToGrayscale(Image<Bgr, byte> image)
         {
@@ -118,34 +141,30 @@ namespace Proiect_audio_video
         }
         public Image<Bgr, byte> BrightnessCorrection(Image<Bgr, byte> image)
         {
-            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
-            image.CopyTo(outputImage);
-            var data = outputImage.Data;
-            for (int i = 0; i < outputImage.Width; i++)
-            {
-                for (int j = 0; j < outputImage.Height; j++)
-                {
-                    data[j, i, 0] = (byte)Math.Min(255, data[j, i, 0] + processValue);
-                    data[j, i, 1] = (byte)Math.Min(255, data[j, i, 1] + processValue);
-                    data[j, i, 2] = (byte)Math.Min(255, data[j, i, 2] + processValue);
-                }
-            }
-
-            return outputImage;
+            double beta = processValue;
+            double alpha = 1;
+            Image<Bgr, byte> multipliedImage = image.Mul(alpha) + beta;
+            return multipliedImage;
         }
 
         public Image<Bgr, byte> GammaCorrection(Image<Bgr, byte> image)
         {
-            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
+            image._GammaCorrect(processValue);
+            return image;
+        }
+
+        public Image<Bgr, byte> AdjustColorSpace(Image<Bgr, byte> image)
+        {
+            Image<Bgr, Byte> outputImage = new Image<Bgr, byte>(image.Size);
             image.CopyTo(outputImage);
             var data = outputImage.Data;
             for (int i = 0; i < outputImage.Width; i++)
             {
                 for (int j = 0; j < outputImage.Height; j++)
                 {
-                    data[j, i, 0] = (byte)Math.Min(255, Math.Pow(data[j, i, 0], 1.0 / processValue));
-                    data[j, i, 1] = (byte)Math.Min(255, Math.Pow(data[j, i, 1], 1.0 / processValue));
-                    data[j, i, 2] = (byte)Math.Min(255, Math.Pow(data[j, i, 2], 1.0 / processValue));
+                    data[j, i, 0] = (byte)(data[j, i, 0] * blueValue);
+                    data[j, i, 1] = (byte)(data[j, i, 1] * greenValue);
+                    data[j, i, 2] = (byte)(data[j, i, 2] * redValue);
                 }
             }
             return outputImage;

@@ -47,9 +47,19 @@
             radioButtonScale = new RadioButton();
             radioButtonRotate = new RadioButton();
             numericUpDownScaleFactor = new NumericUpDown();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            trackBarRed = new TrackBar();
+            trackBarGreen = new TrackBar();
+            trackBarBlue = new TrackBar();
+            radioButtonAdjustColorSpace = new RadioButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarBlue).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -194,7 +204,7 @@
             // 
             // textBoxProcessValue
             // 
-            textBoxProcessValue.Location = new Point(1010, 320);
+            textBoxProcessValue.Location = new Point(993, 323);
             textBoxProcessValue.Name = "textBoxProcessValue";
             textBoxProcessValue.Size = new Size(101, 27);
             textBoxProcessValue.TabIndex = 12;
@@ -226,7 +236,7 @@
             // radioButtonBackgroundSubtraction
             // 
             radioButtonBackgroundSubtraction.AutoSize = true;
-            radioButtonBackgroundSubtraction.Location = new Point(811, 425);
+            radioButtonBackgroundSubtraction.Location = new Point(810, 581);
             radioButtonBackgroundSubtraction.Margin = new Padding(3, 4, 3, 4);
             radioButtonBackgroundSubtraction.Name = "radioButtonBackgroundSubtraction";
             radioButtonBackgroundSubtraction.Size = new Size(189, 24);
@@ -239,11 +249,11 @@
             // radioButtonScale
             // 
             radioButtonScale.AutoSize = true;
-            radioButtonScale.Location = new Point(811, 457);
+            radioButtonScale.Location = new Point(810, 613);
             radioButtonScale.Margin = new Padding(3, 4, 3, 4);
             radioButtonScale.Name = "radioButtonScale";
             radioButtonScale.Size = new Size(65, 24);
-            radioButtonScale.TabIndex = 16;
+            radioButtonScale.TabIndex = 22;
             radioButtonScale.TabStop = true;
             radioButtonScale.Text = "Scale";
             radioButtonScale.UseVisualStyleBackColor = true;
@@ -252,7 +262,7 @@
             // radioButtonRotate
             // 
             radioButtonRotate.AutoSize = true;
-            radioButtonRotate.Location = new Point(811, 489);
+            radioButtonRotate.Location = new Point(812, 652);
             radioButtonRotate.Margin = new Padding(3, 4, 3, 4);
             radioButtonRotate.Name = "radioButtonRotate";
             radioButtonRotate.Size = new Size(74, 24);
@@ -264,13 +274,83 @@
             // numericUpDownScaleFactor
             // 
             numericUpDownScaleFactor.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownScaleFactor.Location = new Point(961, 456);
+            numericUpDownScaleFactor.Location = new Point(944, 612);
             numericUpDownScaleFactor.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
             numericUpDownScaleFactor.Name = "numericUpDownScaleFactor";
             numericUpDownScaleFactor.Size = new Size(150, 27);
             numericUpDownScaleFactor.TabIndex = 19;
             numericUpDownScaleFactor.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownScaleFactor.ValueChanged += numericUpDownScaleFactor_ValueChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(812, 434);
+            label2.Name = "label2";
+            label2.Size = new Size(18, 20);
+            label2.TabIndex = 15;
+            label2.Text = "R";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(811, 469);
+            label3.Name = "label3";
+            label3.Size = new Size(19, 20);
+            label3.TabIndex = 16;
+            label3.Text = "G";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(811, 505);
+            label4.Name = "label4";
+            label4.Size = new Size(18, 20);
+            label4.TabIndex = 17;
+            label4.Text = "B";
+            // 
+            // trackBarRed
+            // 
+            trackBarRed.Location = new Point(858, 425);
+            trackBarRed.Name = "trackBarRed";
+            trackBarRed.Size = new Size(236, 56);
+            trackBarRed.TabIndex = 18;
+            trackBarRed.TickStyle = TickStyle.None;
+            trackBarRed.Value = 10;
+            trackBarRed.Scroll += trackBarRed_Scroll;
+            // 
+            // trackBarGreen
+            // 
+            trackBarGreen.Location = new Point(858, 461);
+            trackBarGreen.Name = "trackBarGreen";
+            trackBarGreen.Size = new Size(236, 56);
+            trackBarGreen.TabIndex = 19;
+            trackBarGreen.TickStyle = TickStyle.None;
+            trackBarGreen.Value = 10;
+            trackBarGreen.Scroll += trackBarGreen_Scroll;
+            // 
+            // trackBarBlue
+            // 
+            trackBarBlue.Location = new Point(858, 502);
+            trackBarBlue.Name = "trackBarBlue";
+            trackBarBlue.Size = new Size(236, 56);
+            trackBarBlue.TabIndex = 20;
+            trackBarBlue.TickStyle = TickStyle.None;
+            trackBarBlue.Value = 10;
+            trackBarBlue.Scroll += trackBarBlue_Scroll;
+            // 
+            // radioButtonAdjustColorSpace
+            // 
+            radioButtonAdjustColorSpace.AutoSize = true;
+            radioButtonAdjustColorSpace.Location = new Point(810, 549);
+            radioButtonAdjustColorSpace.Margin = new Padding(3, 4, 3, 4);
+            radioButtonAdjustColorSpace.Name = "radioButtonAdjustColorSpace";
+            radioButtonAdjustColorSpace.Size = new Size(156, 24);
+            radioButtonAdjustColorSpace.TabIndex = 21;
+            radioButtonAdjustColorSpace.TabStop = true;
+            radioButtonAdjustColorSpace.Text = "Adjust Color Space";
+            radioButtonAdjustColorSpace.UseVisualStyleBackColor = true;
+            radioButtonAdjustColorSpace.CheckedChanged += radioButtonAdjustColorSpace_CheckedChanged;
             // 
             // Form1
             // 
@@ -279,8 +359,15 @@
             ClientSize = new Size(1123, 765);
             Controls.Add(numericUpDownScaleFactor);
             Controls.Add(radioButtonRotate);
-            Controls.Add(radioButtonScale);
             Controls.Add(radioButtonBackgroundSubtraction);
+            Controls.Add(radioButtonScale);
+            Controls.Add(radioButtonAdjustColorSpace);
+            Controls.Add(trackBarBlue);
+            Controls.Add(trackBarGreen);
+            Controls.Add(trackBarRed);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(radioButtonGammaCorrection);
             Controls.Add(label1);
             Controls.Add(textBoxProcessValue);
@@ -298,12 +385,15 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
-            Text = "Editare Audio-Video";
+            Text = "34eswd";
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarBlue).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -329,5 +419,12 @@
         private RadioButton radioButtonScale;
         private RadioButton radioButtonRotate;
         private NumericUpDown numericUpDownScaleFactor;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private TrackBar trackBarRed;
+        private TrackBar trackBarGreen;
+        private TrackBar trackBarBlue;
+        private RadioButton radioButtonAdjustColorSpace;
     }
 }

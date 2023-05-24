@@ -158,6 +158,29 @@ namespace Proiect_audio_video
             }
         }
 
+        private void radioButtonAdjustColorSpace_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonAdjustColorSpace.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.AdjustColorSpace);
+            }
+        }
+
+        private void trackBarRed_Scroll(object sender, EventArgs e)
+        {
+            imageProcessing.SetRedValue(trackBarRed.Value / 10);
+        }
+
+        private void trackBarGreen_Scroll(object sender, EventArgs e)
+        {
+            imageProcessing.SetGreenValue(trackBarGreen.Value / 10);
+        }
+
+        private void trackBarBlue_Scroll(object sender, EventArgs e)
+        {
+            imageProcessing.SetBlueValue(trackBarBlue.Value / 10);
+        }
+
         private void radioButtonScale_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonScale.Checked)
