@@ -149,5 +149,26 @@ namespace Proiect_audio_video
                 imageProcessing.SetProcessValue(double.Parse(textBoxProcessValue.Text));
             }
         }
+
+        private void radioButtonBackgroundSubtraction_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBackgroundSubtraction.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.BackgroundSubtraction);
+            }
+        }
+
+        private void radioButtonScale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonScale.Checked)
+            {
+                videoProcessor.SetProcessingFunction(imageProcessing.Scale);
+            }
+        }
+
+        private void numericUpDownScaleFactor_ValueChanged(object sender, EventArgs e)
+        {
+            imageProcessing.SetScaleFactor((double)numericUpDownScaleFactor.Value);
+        }
     }
 }

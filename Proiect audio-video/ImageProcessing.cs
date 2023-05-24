@@ -14,11 +14,19 @@ namespace Proiect_audio_video
     {
         private int frameNumber;
         private double processValue;
+        private double scaleFactor;
+        private VideoCapture _cameraCapture;
+        private Image<Bgr, byte> newBackgroundImage;
+        private IBackgroundSubtractor _fgDetector;
 
         public ImageProcessing()
         {
             frameNumber = 0;
             processValue = 30;
+            scaleFactor = 1;
+            _cameraCapture = new VideoCapture();
+            _fgDetector = new BackgroundSubtractorMOG2();
+            //Application.Idle += ProcessFrame;
         }
         public void SetFrameNumber(int frameNumber)
         {
@@ -28,6 +36,11 @@ namespace Proiect_audio_video
         public void SetProcessValue(double processValue)
         {
             this.processValue = processValue;
+        }
+
+        public void SetScaleFactor(double scaleFactor)
+        {
+            this.scaleFactor = scaleFactor;
         }
         public Image<Bgr, byte> ConvertToGrayscale(Image<Bgr, byte> image)
         {
@@ -135,6 +148,43 @@ namespace Proiect_audio_video
                     data[j, i, 2] = (byte)Math.Min(255, Math.Pow(data[j, i, 2], 1.0 / processValue));
                 }
             }
+            return outputImage;
+        }
+
+        public Image<Bgr, byte> BackgroundSubtraction(Image<Bgr, byte> image)
+        {
+            Mat frame = _cameraCapture.QueryFrame();
+            Image<Bgr, byte> frameImage = frame.ToImage<Bgr, byte>();
+
+            Mat foregroundMask = new Mat();
+            _fgDetector.Apply(frame, foregroundMask);
+            var foregroundMaskImage = foregroundMask.ToImage<Gray, byte>();
+            foregroundMaskImage = foregroundMaskImage.Not();
+
+            var copyOfNewBackgroundImage = newBackgroundImage.Resize(foregroundMaskImage.Width, foregroundMaskImage.Height, Inter.Lanczos4);
+            copyOfNewBackgroundImage = copyOfNewBackgroundImage.Copy(foregroundMaskImage);
+
+            foregroundMaskImage = foregroundMaskImage.Not();
+            frameImage = frameImage.Copy(foregroundMaskImage);
+
+            frameImage = frameImage.Or(copyOfNewBackgroundImage);
+
+            return frameImage;
+        }
+
+        public Image<Bgr, byte> Scale(Image<Bgr, byte> image)
+        {
+            Image<Bgr, byte> resizedImage = image.Resize(scaleFactor, Emgu.CV.CvEnum.Inter.Cubic);
+            Image<Bgr, byte> outputImage = new Image<Bgr, byte>(image.Size);
+
+            int x = (resizedImage.Width - image.Width) / 2;
+            int y = (resizedImage.Height - image.Height) / 2;
+
+            Rectangle roi = new Rectangle(x, y, image.Width, image.Height);
+            resizedImage.ROI = roi;
+
+            resizedImage.CopyTo(outputImage);
+
             return outputImage;
         }
     }

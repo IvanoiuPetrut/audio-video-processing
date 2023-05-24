@@ -43,8 +43,13 @@
             textBoxProcessValue = new TextBox();
             label1 = new Label();
             radioButtonGammaCorrection = new RadioButton();
+            radioButtonBackgroundSubtraction = new RadioButton();
+            radioButtonScale = new RadioButton();
+            radioButtonRotate = new RadioButton();
+            numericUpDownScaleFactor = new NumericUpDown();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -53,23 +58,25 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { openFileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(983, 24);
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(1123, 30);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // openFileToolStripMenuItem
             // 
             openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            openFileToolStripMenuItem.Size = new Size(67, 20);
+            openFileToolStripMenuItem.Size = new Size(84, 24);
             openFileToolStripMenuItem.Text = "Open file";
             openFileToolStripMenuItem.Click += openFileToolStripMenuItem_Click;
             // 
             // pictureBoxVideoStream
             // 
             pictureBoxVideoStream.BackColor = SystemColors.ControlDark;
-            pictureBoxVideoStream.Location = new Point(12, 39);
+            pictureBoxVideoStream.Location = new Point(14, 52);
+            pictureBoxVideoStream.Margin = new Padding(3, 4, 3, 4);
             pictureBoxVideoStream.Name = "pictureBoxVideoStream";
-            pictureBoxVideoStream.Size = new Size(675, 468);
+            pictureBoxVideoStream.Size = new Size(771, 624);
             pictureBoxVideoStream.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxVideoStream.TabIndex = 1;
             pictureBoxVideoStream.TabStop = false;
@@ -80,16 +87,18 @@
             // 
             // progressBarVideoStream
             // 
-            progressBarVideoStream.Location = new Point(12, 529);
+            progressBarVideoStream.Location = new Point(14, 705);
+            progressBarVideoStream.Margin = new Padding(3, 4, 3, 4);
             progressBarVideoStream.Name = "progressBarVideoStream";
-            progressBarVideoStream.Size = new Size(675, 23);
+            progressBarVideoStream.Size = new Size(771, 31);
             progressBarVideoStream.TabIndex = 2;
             // 
             // btnPlayVideo
             // 
-            btnPlayVideo.Location = new Point(710, 39);
+            btnPlayVideo.Location = new Point(811, 52);
+            btnPlayVideo.Margin = new Padding(3, 4, 3, 4);
             btnPlayVideo.Name = "btnPlayVideo";
-            btnPlayVideo.Size = new Size(107, 36);
+            btnPlayVideo.Size = new Size(122, 48);
             btnPlayVideo.TabIndex = 3;
             btnPlayVideo.Text = "Play Video";
             btnPlayVideo.UseVisualStyleBackColor = true;
@@ -99,18 +108,19 @@
             // 
             labelVideoStreamFrameCount.AutoSize = true;
             labelVideoStreamFrameCount.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelVideoStreamFrameCount.Location = new Point(845, 48);
+            labelVideoStreamFrameCount.Location = new Point(966, 64);
             labelVideoStreamFrameCount.Name = "labelVideoStreamFrameCount";
-            labelVideoStreamFrameCount.Size = new Size(84, 21);
+            labelVideoStreamFrameCount.Size = new Size(106, 28);
             labelVideoStreamFrameCount.TabIndex = 4;
             labelVideoStreamFrameCount.Text = "FPS Count";
             // 
             // radioButtonGrayscale
             // 
             radioButtonGrayscale.AutoSize = true;
-            radioButtonGrayscale.Location = new Point(710, 112);
+            radioButtonGrayscale.Location = new Point(811, 149);
+            radioButtonGrayscale.Margin = new Padding(3, 4, 3, 4);
             radioButtonGrayscale.Name = "radioButtonGrayscale";
-            radioButtonGrayscale.Size = new Size(75, 19);
+            radioButtonGrayscale.Size = new Size(93, 24);
             radioButtonGrayscale.TabIndex = 6;
             radioButtonGrayscale.TabStop = true;
             radioButtonGrayscale.Text = "Grayscale";
@@ -120,9 +130,10 @@
             // radioButtonExtractRed
             // 
             radioButtonExtractRed.AutoSize = true;
-            radioButtonExtractRed.Location = new Point(710, 137);
+            radioButtonExtractRed.Location = new Point(811, 183);
+            radioButtonExtractRed.Margin = new Padding(3, 4, 3, 4);
             radioButtonExtractRed.Name = "radioButtonExtractRed";
-            radioButtonExtractRed.Size = new Size(84, 19);
+            radioButtonExtractRed.Size = new Size(105, 24);
             radioButtonExtractRed.TabIndex = 7;
             radioButtonExtractRed.TabStop = true;
             radioButtonExtractRed.Text = "Extract Red";
@@ -132,9 +143,10 @@
             // radioButtonExtractGreen
             // 
             radioButtonExtractGreen.AutoSize = true;
-            radioButtonExtractGreen.Location = new Point(710, 162);
+            radioButtonExtractGreen.Location = new Point(811, 216);
+            radioButtonExtractGreen.Margin = new Padding(3, 4, 3, 4);
             radioButtonExtractGreen.Name = "radioButtonExtractGreen";
-            radioButtonExtractGreen.Size = new Size(95, 19);
+            radioButtonExtractGreen.Size = new Size(118, 24);
             radioButtonExtractGreen.TabIndex = 8;
             radioButtonExtractGreen.TabStop = true;
             radioButtonExtractGreen.Text = "Extract Green";
@@ -144,9 +156,10 @@
             // radioButtonExtractBlue
             // 
             radioButtonExtractBlue.AutoSize = true;
-            radioButtonExtractBlue.Location = new Point(710, 187);
+            radioButtonExtractBlue.Location = new Point(811, 249);
+            radioButtonExtractBlue.Margin = new Padding(3, 4, 3, 4);
             radioButtonExtractBlue.Name = "radioButtonExtractBlue";
-            radioButtonExtractBlue.Size = new Size(87, 19);
+            radioButtonExtractBlue.Size = new Size(108, 24);
             radioButtonExtractBlue.TabIndex = 9;
             radioButtonExtractBlue.TabStop = true;
             radioButtonExtractBlue.Text = "Extract Blue";
@@ -156,9 +169,10 @@
             // radioButtonCarousel
             // 
             radioButtonCarousel.AutoSize = true;
-            radioButtonCarousel.Location = new Point(710, 212);
+            radioButtonCarousel.Location = new Point(811, 283);
+            radioButtonCarousel.Margin = new Padding(3, 4, 3, 4);
             radioButtonCarousel.Name = "radioButtonCarousel";
-            radioButtonCarousel.Size = new Size(71, 19);
+            radioButtonCarousel.Size = new Size(87, 24);
             radioButtonCarousel.TabIndex = 10;
             radioButtonCarousel.TabStop = true;
             radioButtonCarousel.Text = "Carousel";
@@ -168,9 +182,10 @@
             // radioButtonBrightness
             // 
             radioButtonBrightness.AutoSize = true;
-            radioButtonBrightness.Location = new Point(710, 270);
+            radioButtonBrightness.Location = new Point(811, 360);
+            radioButtonBrightness.Margin = new Padding(3, 4, 3, 4);
             radioButtonBrightness.Name = "radioButtonBrightness";
-            radioButtonBrightness.Size = new Size(139, 19);
+            radioButtonBrightness.Size = new Size(171, 24);
             radioButtonBrightness.TabIndex = 11;
             radioButtonBrightness.TabStop = true;
             radioButtonBrightness.Text = "Brightness Correction";
@@ -179,10 +194,9 @@
             // 
             // textBoxProcessValue
             // 
-            textBoxProcessValue.Location = new Point(804, 240);
-            textBoxProcessValue.Margin = new Padding(3, 2, 3, 2);
+            textBoxProcessValue.Location = new Point(1010, 320);
             textBoxProcessValue.Name = "textBoxProcessValue";
-            textBoxProcessValue.Size = new Size(89, 23);
+            textBoxProcessValue.Size = new Size(101, 27);
             textBoxProcessValue.TabIndex = 12;
             textBoxProcessValue.Text = "0";
             textBoxProcessValue.TextChanged += textBoxProcessValue_TextChanged;
@@ -190,29 +204,83 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(710, 242);
+            label1.Location = new Point(811, 323);
             label1.Name = "label1";
-            label1.Size = new Size(78, 15);
+            label1.Size = new Size(98, 20);
             label1.TabIndex = 13;
             label1.Text = "Process Value";
             // 
             // radioButtonGammaCorrection
             // 
             radioButtonGammaCorrection.AutoSize = true;
-            radioButtonGammaCorrection.Location = new Point(710, 294);
+            radioButtonGammaCorrection.Location = new Point(811, 392);
+            radioButtonGammaCorrection.Margin = new Padding(3, 4, 3, 4);
             radioButtonGammaCorrection.Name = "radioButtonGammaCorrection";
-            radioButtonGammaCorrection.Size = new Size(126, 19);
+            radioButtonGammaCorrection.Size = new Size(155, 24);
             radioButtonGammaCorrection.TabIndex = 14;
             radioButtonGammaCorrection.TabStop = true;
             radioButtonGammaCorrection.Text = "Gamma Correction";
             radioButtonGammaCorrection.UseVisualStyleBackColor = true;
             radioButtonGammaCorrection.CheckedChanged += radioButtonGammaCorrection_CheckedChanged;
             // 
+            // radioButtonBackgroundSubtraction
+            // 
+            radioButtonBackgroundSubtraction.AutoSize = true;
+            radioButtonBackgroundSubtraction.Location = new Point(811, 425);
+            radioButtonBackgroundSubtraction.Margin = new Padding(3, 4, 3, 4);
+            radioButtonBackgroundSubtraction.Name = "radioButtonBackgroundSubtraction";
+            radioButtonBackgroundSubtraction.Size = new Size(189, 24);
+            radioButtonBackgroundSubtraction.TabIndex = 15;
+            radioButtonBackgroundSubtraction.TabStop = true;
+            radioButtonBackgroundSubtraction.Text = "Background Subtraction";
+            radioButtonBackgroundSubtraction.UseVisualStyleBackColor = true;
+            radioButtonBackgroundSubtraction.CheckedChanged += radioButtonBackgroundSubtraction_CheckedChanged;
+            // 
+            // radioButtonScale
+            // 
+            radioButtonScale.AutoSize = true;
+            radioButtonScale.Location = new Point(811, 457);
+            radioButtonScale.Margin = new Padding(3, 4, 3, 4);
+            radioButtonScale.Name = "radioButtonScale";
+            radioButtonScale.Size = new Size(65, 24);
+            radioButtonScale.TabIndex = 16;
+            radioButtonScale.TabStop = true;
+            radioButtonScale.Text = "Scale";
+            radioButtonScale.UseVisualStyleBackColor = true;
+            radioButtonScale.CheckedChanged += radioButtonScale_CheckedChanged;
+            // 
+            // radioButtonRotate
+            // 
+            radioButtonRotate.AutoSize = true;
+            radioButtonRotate.Location = new Point(811, 489);
+            radioButtonRotate.Margin = new Padding(3, 4, 3, 4);
+            radioButtonRotate.Name = "radioButtonRotate";
+            radioButtonRotate.Size = new Size(74, 24);
+            radioButtonRotate.TabIndex = 17;
+            radioButtonRotate.TabStop = true;
+            radioButtonRotate.Text = "Rotate";
+            radioButtonRotate.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownScaleFactor
+            // 
+            numericUpDownScaleFactor.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numericUpDownScaleFactor.Location = new Point(961, 456);
+            numericUpDownScaleFactor.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+            numericUpDownScaleFactor.Name = "numericUpDownScaleFactor";
+            numericUpDownScaleFactor.Size = new Size(150, 27);
+            numericUpDownScaleFactor.TabIndex = 19;
+            numericUpDownScaleFactor.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownScaleFactor.ValueChanged += numericUpDownScaleFactor_ValueChanged;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(983, 574);
+            ClientSize = new Size(1123, 765);
+            Controls.Add(numericUpDownScaleFactor);
+            Controls.Add(radioButtonRotate);
+            Controls.Add(radioButtonScale);
+            Controls.Add(radioButtonBackgroundSubtraction);
             Controls.Add(radioButtonGammaCorrection);
             Controls.Add(label1);
             Controls.Add(textBoxProcessValue);
@@ -228,12 +296,14 @@
             Controls.Add(pictureBoxVideoStream);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Editare Audio-Video";
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -255,5 +325,9 @@
         private TextBox textBoxProcessValue;
         private Label label1;
         private RadioButton radioButtonGammaCorrection;
+        private RadioButton radioButtonBackgroundSubtraction;
+        private RadioButton radioButtonScale;
+        private RadioButton radioButtonRotate;
+        private NumericUpDown numericUpDownScaleFactor;
     }
 }
