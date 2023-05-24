@@ -11,5 +11,6 @@ namespace Proiect_audio_video
     {
         public Mat? Frame { get; set; }
         public int FrameNo { get; set; }
+        public int TotalFrameNumber { get; set; }
     }
 }

@@ -21,20 +21,23 @@ namespace Proiect_audio_video
             progress.ProgressChanged += (sender, package) =>
             {
                 pictureBoxVideoStream.Image = package.Frame.ToBitmap();
+                labelVideoStreamFrameCount.Text = $"Frame: {package.FrameNo}/{package.TotalFrameNumber}";
+                progressBarVideoStream.Value = package.FrameNo;
                 imageProcessing.SetFrameNumber(package.FrameNo);
+                if (package.FrameNo == 2)
+                {
+                    progressBarVideoStream.Maximum = package.TotalFrameNumber;
+                }
             };
 
-            await videoProcessor.PlayVideo(progress, labelVideoStreamFrameCount, progressBarVideoStream);
+            await videoProcessor.PlayVideo(progress);
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            videoProcessor.LoadVideo(pictureBoxVideoStream, progressBarVideoStream);
+            Progress<VideoProcessingProgress> progress = new Progress<VideoProcessingProgress>();
+            videoProcessor.LoadVideo();
         }
-
-        Progress<Mat> progress = new Progress<Mat>();
-
-
 
         private async void btnPlayVideo_Click(object sender, EventArgs e)
         {

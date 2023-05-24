@@ -35,27 +35,20 @@ namespace Proiect_audio_video.VideoProcessing
         {
             processingFunction = function;
         }
-        public void LoadVideo(PictureBox pictureBox, ProgressBar progressBar)
+        public void LoadVideo()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 capture = new VideoCapture(ofd.FileName);
-                Mat m = new Mat();
-                capture.Read(m);
-                pictureBox.Image = m.ToBitmap();
 
                 TotalFrame = (int)capture.Get(CapProp.FrameCount);
                 Fps = capture.Get(CapProp.Fps);
                 FrameNo = 1;
-
-                progressBar.Minimum = 1;
-                progressBar.Maximum = TotalFrame;
-                progressBar.Value = 1;
             }
         }
 
-        public async Task PlayVideo(IProgress<VideoProcessingProgress> progress, Label label, ProgressBar progressBar)
+        public async Task PlayVideo(IProgress<VideoProcessingProgress> progress)
         {
             if (capture == null)
             {
@@ -63,7 +56,7 @@ namespace Proiect_audio_video.VideoProcessing
             }
 
             IsReadingFrame = true;
-            await Task.Run(() => ReadAllFrames(progress, label, progressBar));
+            await Task.Run(() => ReadAllFrames(progress));
         }
 
         public void StopVideo()
@@ -85,7 +78,7 @@ namespace Proiect_audio_video.VideoProcessing
             return image.Mat;
         }
 
-        private async void ReadAllFrames(IProgress<VideoProcessingProgress> progress, Label label, ProgressBar progressBar)
+        private async void ReadAllFrames(IProgress<VideoProcessingProgress> progress)
         {
             Mat m = new Mat();
             while (IsReadingFrame == true && FrameNo < TotalFrame)
@@ -108,18 +101,12 @@ namespace Proiect_audio_video.VideoProcessing
                 progress.Report(new VideoProcessingProgress()
                 {
                     Frame = m,
-                    FrameNo = FrameNo
+                    FrameNo = FrameNo,
+                    TotalFrameNumber = TotalFrame
                 });
 
                 await Task.Delay(1000 / Convert.ToInt16(Fps));
-                label.Invoke((MethodInvoker)delegate ()
-                {
-                    label.Text = FrameNo.ToString() + "/" + TotalFrame.ToString();
-                });
-                progressBar.Invoke((MethodInvoker)delegate ()
-                {
-                    progressBar.Value = FrameNo;
-                });
+               
             }
         }
     }
