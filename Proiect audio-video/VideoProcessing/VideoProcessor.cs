@@ -18,7 +18,6 @@ namespace Proiect_audio_video.VideoProcessing
         private double Fps;
         private int FrameNo;
         private bool IsReadingFrame;
-        public bool playCarousel = false;
         private Rectangle ROI;
         private ImageProcessingFunction processingFunction;
 
