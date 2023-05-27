@@ -14,6 +14,7 @@ namespace Proiect_audio_video.Players
         private Video currentVideo;
         private Rectangle ROI;
         private ImageProcessingFunction processingFunction;
+        private bool isPlaying = false;
 
         public SingleVideoPlayer(int videoStreamWidth, int videoStreamHeight)
         {
@@ -34,22 +35,40 @@ namespace Proiect_audio_video.Players
         public void LoadVideo()
         {
             currentVideo.LoadVideo();
+            var test = currentVideo.TotalFrames;
         }
 
         public async Task PlayVideo(IProgress<VideoProcessingProgress> progress)
         {
-            Mat? frame = await currentVideo.PlayVideo();
-            progress.Report(new VideoProcessingProgress()
-            {
-                Frame = frame,
-                FrameNo = currentVideo.GetCurrentFrameNumber(),
-                TotalFrameNumber = currentVideo.getTotalFrames()
-            });
+            isPlaying = true;
+            await Task.Run(() => ReadAllFrames(progress));
         }
 
         public void PauseVideo()
         {
-            currentVideo.PauseVideo();
+            isPlaying = false;
+        }
+        private async Task ReadAllFrames(IProgress<VideoProcessingProgress> progress)
+        {
+            while (isPlaying)
+            {
+                var frame = currentVideo.GetCurrentFrame();
+                if (frame == null)
+                {
+                    isPlaying = false;
+                    break;
+                }
+                //var processedFrame = processingFunction(frame, ROI);
+                progress.Report(new VideoProcessingProgress()
+                {
+                    Frame = frame,
+                    FrameNo = currentVideo.GetCurrentFrameNumber(),
+                    TotalFrameNumber = currentVideo.getTotalFrames()
+                });
+                int Fps = currentVideo.GetFps();
+                await Task.Delay(1000 / Fps);
+            }
+
         }
     }
 }

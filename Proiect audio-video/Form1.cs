@@ -1,6 +1,7 @@
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using Emgu.CV;
+using Proiect_audio_video.Players;
 
 namespace Proiect_audio_video
 {
@@ -10,6 +11,8 @@ namespace Proiect_audio_video
         ImageProcessing imageProcessing;
         RegionOfInterestSelector ROI = new RegionOfInterestSelector();
         bool isVideoPlaying = false;
+
+        SingleVideoPlayer singleVideoPlayer;
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +23,7 @@ namespace Proiect_audio_video
             Progress<VideoProcessingProgress> progress = new Progress<VideoProcessingProgress>();
             progress.ProgressChanged += (sender, package) =>
             {
+                var a = package.TotalFrameNumber;
                 pictureBoxVideoStream.Image = package.Frame.ToBitmap();
                 labelVideoStreamFrameCount.Text = $"Frame: {package.FrameNo}/{package.TotalFrameNumber}";
                 progressBarVideoStream.Value = package.FrameNo;
@@ -30,20 +34,19 @@ namespace Proiect_audio_video
                 }
             };
 
-            await videoProcessor.PlayVideo(progress);
+            await singleVideoPlayer.PlayVideo(progress);
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Progress<VideoProcessingProgress> progress = new Progress<VideoProcessingProgress>();
-            videoProcessor.LoadVideo();
+            singleVideoPlayer.LoadVideo();
         }
 
         private async void btnPlayVideo_Click(object sender, EventArgs e)
         {
             if (isVideoPlaying)
             {
-                videoProcessor.StopVideo();
+                singleVideoPlayer.PauseVideo();
                 isVideoPlaying = false;
                 btnPlayVideo.Text = "Play Video";
             }
@@ -87,6 +90,7 @@ namespace Proiect_audio_video
         {
             videoProcessor = new VideoProcessing.VideoProcessor(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
             imageProcessing = new ImageProcessing();
+            singleVideoPlayer = new SingleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
         }
 
         private void radioButtonGrayscale_CheckedChanged(object sender, EventArgs e)

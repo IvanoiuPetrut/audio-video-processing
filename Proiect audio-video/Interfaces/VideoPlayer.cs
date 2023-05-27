@@ -10,7 +10,6 @@ namespace Proiect_audio_video.Interfaces
     public interface IVideoPlayer
     {
         void LoadVideo();
-        Task<Mat?> PlayVideo();
-        void PauseVideo();
+        Mat GetCurrentFrame();
     }
 }

@@ -13,11 +13,9 @@ namespace Proiect_audio_video.Models
     public class Video : IVideoPlayer
     {
         private VideoCapture? capture;
-        private int TotalFrames;
+        public int TotalFrames;
         private double Fps;
-        private int FrameNumber;
-        private bool IsReadingFrame;
-
+        public int FrameNumber;
         public int getTotalFrames()
         {
             return TotalFrames;
@@ -25,6 +23,11 @@ namespace Proiect_audio_video.Models
         public int GetCurrentFrameNumber()
         {
             return FrameNumber;
+        }
+
+        public int GetFps()
+        {
+            return (int)Fps;
         }
 
         public void LoadVideo()
@@ -39,35 +42,22 @@ namespace Proiect_audio_video.Models
             }
         }
 
-        public async Task<Mat?> PlayVideo()
+        public Mat GetCurrentFrame()
         {
-            if (capture == null)
+            if(FrameNumber == TotalFrames)
             {
                 return null;
             }
-            IsReadingFrame = true;
-            return await Task.Run(() => ReadAllFrames());
-        }
 
-        public void PauseVideo()
-        {
-            IsReadingFrame = false;
-        }
+            var frame = capture.QueryFrame();
 
-        private async Task<Mat?> ReadAllFrames()
-        {
-            while (IsReadingFrame)
+            if (frame == null)
             {
-                var frame = capture.QueryFrame();
-                if (frame == null)
-                {
-                    break;
-                }
-                FrameNumber++;
-                await Task.Delay(TimeSpan.FromMilliseconds(1000 / Fps));
-                return frame;
+                return null;
             }
-            return null;
+
+            FrameNumber++;
+            return frame;
         }
     }
 }
