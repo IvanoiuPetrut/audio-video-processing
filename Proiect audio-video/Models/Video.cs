@@ -42,14 +42,19 @@ namespace Proiect_audio_video.Models
             }
         }
 
-        public Mat GetCurrentFrame()
+        public Mat? GetCurrentFrame()
         {
-            if(FrameNumber == TotalFrames)
+            if (FrameNumber == TotalFrames)
             {
                 return null;
             }
 
-            var frame = capture.QueryFrame();
+            if (capture == null)
+            {
+                return null;
+            }
+
+            Mat? frame = capture.QueryFrame();
 
             if (frame == null)
             {

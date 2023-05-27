@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect_audio_video
+namespace Proiect_audio_video.ProgressPayloads
 {
     public class VideoProcessingProgress
     {

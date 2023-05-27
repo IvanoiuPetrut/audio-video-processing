@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect_audio_video
+namespace Proiect_audio_video.Utilities
 {
     public class RegionOfInterestSelector
     {
@@ -34,8 +34,8 @@ namespace Proiect_audio_video
         public void UpdateSelection(Point currentPoint)
         {
             int width = Math.Max(startPoint.X, currentPoint.X) - Math.Min(startPoint.X, currentPoint.X);
-            int height = Math.Max(this.startPoint.Y, currentPoint.Y) - Math.Min(this.startPoint.Y, currentPoint.Y);
-            rect = new Rectangle(Math.Min(this.startPoint.X, currentPoint.X), Math.Min(this.startPoint.Y, currentPoint.Y), width, height);
+            int height = Math.Max(startPoint.Y, currentPoint.Y) - Math.Min(startPoint.Y, currentPoint.Y);
+            rect = new Rectangle(Math.Min(startPoint.X, currentPoint.X), Math.Min(startPoint.Y, currentPoint.Y), width, height);
         }
 
         public void EndSelection(Point endPoint)

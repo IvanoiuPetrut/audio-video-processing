@@ -2,15 +2,23 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using Emgu.CV;
 using Proiect_audio_video.Players;
+using Proiect_audio_video.ImageProcessors;
+using Proiect_audio_video.Utilities;
+using Proiect_audio_video.ProgressPayloads;
 
 namespace Proiect_audio_video
 {
     public partial class Form1 : Form
     {
-        VideoProcessing.VideoProcessor videoProcessor;
-        ImageProcessing imageProcessing;
         RegionOfInterestSelector ROI = new RegionOfInterestSelector();
-        bool isVideoPlaying = false;
+        Carousel carousel = new Carousel(0);
+        GrayScaleConvertor grayScaleConvertor = new GrayScaleConvertor();
+        ColorSpaceAdjuster colorSpaceAdjuster = new ColorSpaceAdjuster(1, 1, 1);
+        BrightnessAdjuster brightnessAdjuster = new BrightnessAdjuster(1, 0);
+        GammaCorrectionApplier gammaCorrectionApplier = new GammaCorrectionApplier(1);
+        ScaleImage scaleImage = new ScaleImage(1);
+        RotateImage rotateImage = new RotateImage(0);
+
 
         SingleVideoPlayer singleVideoPlayer;
         public Form1()
@@ -27,7 +35,7 @@ namespace Proiect_audio_video
                 pictureBoxVideoStream.Image = package.Frame.ToBitmap();
                 labelVideoStreamFrameCount.Text = $"Frame: {package.FrameNo}/{package.TotalFrameNumber}";
                 progressBarVideoStream.Value = package.FrameNo;
-                imageProcessing.SetFrameNumber(package.FrameNo);
+                carousel.SetFrameNumber(package.FrameNo);
                 if (package.FrameNo == 2)
                 {
                     progressBarVideoStream.Maximum = package.TotalFrameNumber;
@@ -44,15 +52,15 @@ namespace Proiect_audio_video
 
         private async void btnPlayVideo_Click(object sender, EventArgs e)
         {
-            if (isVideoPlaying)
+            if (singleVideoPlayer.GetIsPlaying())
             {
                 singleVideoPlayer.PauseVideo();
-                isVideoPlaying = false;
+                singleVideoPlayer.SetIsPlaying(false);
                 btnPlayVideo.Text = "Play Video";
             }
             else
             {
-                isVideoPlaying = true;
+                singleVideoPlayer.SetIsPlaying(true);
                 btnPlayVideo.Text = "Stop Video";
                 await StartVideoProcessing();
             }
@@ -77,7 +85,7 @@ namespace Proiect_audio_video
         private void pictureBoxVideoStream_MouseUp(object sender, MouseEventArgs e)
         {
             ROI.EndSelection(e.Location);
-            videoProcessor.SetROI(ROI.Rect);
+            singleVideoPlayer.SetROI(ROI.Rect);
 
         }
 
@@ -88,8 +96,6 @@ namespace Proiect_audio_video
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            videoProcessor = new VideoProcessing.VideoProcessor(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
-            imageProcessing = new ImageProcessing();
             singleVideoPlayer = new SingleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
         }
 
@@ -97,7 +103,7 @@ namespace Proiect_audio_video
         {
             if (radioButtonGrayscale.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.ConvertToGrayscale);
+                singleVideoPlayer.SetProcessingFunction(grayScaleConvertor.ProcessFrame);
             }
         }
 
@@ -105,7 +111,10 @@ namespace Proiect_audio_video
         {
             if (radioButtonExtractRed.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.ExtractRed);
+                colorSpaceAdjuster.SetRedValue(1);
+                colorSpaceAdjuster.SetGreenValue(0);
+                colorSpaceAdjuster.SetBlueValue(0);
+                singleVideoPlayer.SetProcessingFunction(colorSpaceAdjuster.ProcessFrame);
             }
         }
 
@@ -113,7 +122,10 @@ namespace Proiect_audio_video
         {
             if (radioButtonExtractGreen.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.ExtractGreen);
+                colorSpaceAdjuster.SetRedValue(0);
+                colorSpaceAdjuster.SetGreenValue(1);
+                colorSpaceAdjuster.SetBlueValue(0);
+                singleVideoPlayer.SetProcessingFunction(colorSpaceAdjuster.ProcessFrame);
             }
         }
 
@@ -121,7 +133,10 @@ namespace Proiect_audio_video
         {
             if (radioButtonExtractBlue.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.ExtractBlue);
+                colorSpaceAdjuster.SetRedValue(0);
+                colorSpaceAdjuster.SetGreenValue(0);
+                colorSpaceAdjuster.SetBlueValue(1);
+                singleVideoPlayer.SetProcessingFunction(colorSpaceAdjuster.ProcessFrame);
             }
         }
 
@@ -129,7 +144,7 @@ namespace Proiect_audio_video
         {
             if (radioButtonCarousel.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.Carousel);
+                singleVideoPlayer.SetProcessingFunction(carousel.ProcessFrame);
             }
         }
 
@@ -137,7 +152,7 @@ namespace Proiect_audio_video
         {
             if (radioButtonBrightness.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.BrightnessCorrection);
+                singleVideoPlayer.SetProcessingFunction(brightnessAdjuster.ProcessFrame);
             }
         }
 
@@ -145,7 +160,7 @@ namespace Proiect_audio_video
         {
             if (radioButtonGammaCorrection.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.GammaCorrection);
+                singleVideoPlayer.SetProcessingFunction(gammaCorrectionApplier.ProcessFrame);
             }
         }
 
@@ -153,7 +168,6 @@ namespace Proiect_audio_video
         {
             if (textBoxProcessValue.Text != "")
             {
-                imageProcessing.SetProcessValue(double.Parse(textBoxProcessValue.Text));
             }
         }
 
@@ -161,7 +175,6 @@ namespace Proiect_audio_video
         {
             if (radioButtonBackgroundSubtraction.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.BackgroundSubtraction);
             }
         }
 
@@ -169,48 +182,48 @@ namespace Proiect_audio_video
         {
             if (radioButtonAdjustColorSpace.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.AdjustColorSpace);
+                singleVideoPlayer.SetProcessingFunction(colorSpaceAdjuster.ProcessFrame);
             }
         }
 
         private void trackBarRed_Scroll(object sender, EventArgs e)
         {
-            imageProcessing.SetRedValue(trackBarRed.Value / 10);
+            colorSpaceAdjuster.SetRedValue(trackBarRed.Value / 10);
         }
 
         private void trackBarGreen_Scroll(object sender, EventArgs e)
         {
-            imageProcessing.SetGreenValue(trackBarGreen.Value / 10);
+            colorSpaceAdjuster.SetGreenValue(trackBarGreen.Value / 10);
         }
 
         private void trackBarBlue_Scroll(object sender, EventArgs e)
         {
-            imageProcessing.SetBlueValue(trackBarBlue.Value / 10);
+            colorSpaceAdjuster.SetBlueValue(trackBarBlue.Value / 10);
         }
 
         private void radioButtonScale_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonScale.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.Scale);
+                singleVideoPlayer.SetProcessingFunction(scaleImage.ProcessFrame);
             }
         }
 
         private void numericUpDownScaleFactor_ValueChanged(object sender, EventArgs e)
         {
-            imageProcessing.SetScaleFactor((double)numericUpDownScaleFactor.Value);
+            scaleImage.SetScaleFactor((double)numericUpDownScaleFactor.Value);
         }
 
         private void numericUpRotateFactor_ValueChanged(object sender, EventArgs e)
         {
-            imageProcessing.SetRotationAngle((double)numericUpRotateFactor.Value);
+            rotateImage.SetRotationAngle((double)numericUpRotateFactor.Value);
         }
 
         private void radioButtonRotate_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonRotate.Checked)
             {
-                videoProcessor.SetProcessingFunction(imageProcessing.Rotate);
+                singleVideoPlayer.SetProcessingFunction(rotateImage.ProcessFrame);
             }
         }
 
@@ -221,7 +234,22 @@ namespace Proiect_audio_video
             var value = mousePosition.X * progressBarVideoStream.Maximum / progressBarVideoStream.Width;
             progressBarVideoStream.Value = value;
             labelVideoStreamFrameCount.Text = $"Frame: {progressBarVideoStream.Value}/{progressBarVideoStream.Maximum}";
-            videoProcessor.SetFrameNumber(progressBarVideoStream.Value);
+            //videoProcessor.SetFrameNumber(progressBarVideoStream.Value);
+        }
+
+        private void numericUpDownAlphaBrightness_ValueChanged(object sender, EventArgs e)
+        {
+            brightnessAdjuster.SetAlpha((double)numericUpDownAlphaBrightness.Value);
+        }
+
+        private void numericUpDownBetaBrightness_ValueChanged(object sender, EventArgs e)
+        {
+            brightnessAdjuster.SetBeta((double)numericUpDownBetaBrightness.Value);
+        }
+
+        private void numericUpDownGamma_ValueChanged(object sender, EventArgs e)
+        {
+            gammaCorrectionApplier.SetGamma((double)numericUpDownGamma.Value);
         }
     }
 }

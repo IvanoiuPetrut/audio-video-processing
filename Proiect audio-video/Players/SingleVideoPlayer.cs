@@ -1,6 +1,8 @@
 ﻿using Emgu.CV;
+using Emgu.CV.Structure;
 using Proiect_audio_video.Interfaces;
 using Proiect_audio_video.Models;
+using Proiect_audio_video.ProgressPayloads;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace Proiect_audio_video.Players
     {
         private Video currentVideo;
         private Rectangle ROI;
-        private ImageProcessingFunction processingFunction;
+        private ImageProcessingFunction ProcessingFunction;
         private bool isPlaying = false;
 
         public SingleVideoPlayer(int videoStreamWidth, int videoStreamHeight)
@@ -24,7 +26,7 @@ namespace Proiect_audio_video.Players
 
         public void SetProcessingFunction(ImageProcessingFunction function)
         {
-            processingFunction = function;
+            ProcessingFunction = function;
         }
 
         public void SetROI(Rectangle roi)
@@ -32,10 +34,19 @@ namespace Proiect_audio_video.Players
             ROI = roi;
         }
 
+        public void SetIsPlaying(bool isPlaying)
+        {
+            this.isPlaying = isPlaying;
+        }
+
+        public bool GetIsPlaying()
+        {
+            return isPlaying;
+        }
+
         public void LoadVideo()
         {
             currentVideo.LoadVideo();
-            var test = currentVideo.TotalFrames;
         }
 
         public async Task PlayVideo(IProgress<VideoProcessingProgress> progress)
@@ -58,10 +69,10 @@ namespace Proiect_audio_video.Players
                     isPlaying = false;
                     break;
                 }
-                //var processedFrame = processingFunction(frame, ROI);
+                var processedFrame = ProcessFrame(frame, ROI);
                 progress.Report(new VideoProcessingProgress()
                 {
-                    Frame = frame,
+                    Frame = processedFrame,
                     FrameNo = currentVideo.GetCurrentFrameNumber(),
                     TotalFrameNumber = currentVideo.getTotalFrames()
                 });
@@ -69,6 +80,25 @@ namespace Proiect_audio_video.Players
                 await Task.Delay(1000 / Fps);
             }
 
+        }
+
+        private Mat ProcessFrame(Mat frame, Rectangle ROI)
+        {
+            if (ProcessingFunction == null)
+            {
+                return frame;
+            }
+
+            Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
+            image.ROI = ROI;
+            var imageROI = image.Copy();
+            Image<Bgr, byte> newImageROI;
+            newImageROI = ProcessingFunction(imageROI);
+            image.ROI = Rectangle.Empty;
+            image.ROI = ROI;
+            newImageROI.CopyTo(image);
+            image.ROI = Rectangle.Empty;
+            return image.Mat;
         }
     }
 }
