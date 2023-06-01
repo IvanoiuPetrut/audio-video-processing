@@ -5,6 +5,7 @@ using Proiect_audio_video.Players;
 using Proiect_audio_video.ImageProcessors;
 using Proiect_audio_video.Utilities;
 using Proiect_audio_video.ProgressPayloads;
+using Proiect_audio_video.Enums;
 
 namespace Proiect_audio_video
 {
@@ -19,8 +20,11 @@ namespace Proiect_audio_video
         ScaleImage scaleImage = new ScaleImage(1);
         RotateImage rotateImage = new RotateImage(0);
 
-
         SingleVideoPlayer singleVideoPlayer;
+        DoubleVideoPlayer doubleVideoPlayer;
+
+        PlayerType playerType;
+
         public Form1()
         {
             InitializeComponent();
@@ -42,35 +46,31 @@ namespace Proiect_audio_video
                 }
             };
 
-            await singleVideoPlayer.PlayVideo(progress);
+            if (playerType == PlayerType.SingleVideoPlayer)
+            {
+                await singleVideoPlayer.PlayVideo(progress);
+            }
+            else if (playerType == PlayerType.DoubleVideoPlayer)
+            {
+                await doubleVideoPlayer.PlayVideo(progress);
+            }
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            playerType = PlayerType.SingleVideoPlayer;
             singleVideoPlayer.LoadVideo();
         }
 
         private async void btnPlayVideo_Click(object sender, EventArgs e)
         {
-            if (singleVideoPlayer.GetIsPlaying())
-            {
-                singleVideoPlayer.PauseVideo();
-                singleVideoPlayer.SetIsPlaying(false);
-                btnPlayVideo.Text = "Play Video";
-            }
-            else
-            {
-                singleVideoPlayer.SetIsPlaying(true);
-                btnPlayVideo.Text = "Stop Video";
-                await StartVideoProcessing();
-            }
+            await StartVideoProcessing();
         }
 
         private void pictureBoxVideoStream_MouseDown(object sender, MouseEventArgs e)
         {
             ROI.StartSelection(e.Location);
         }
-
         private void pictureBoxVideoStream_MouseMove(object sender, MouseEventArgs e)
         {
             if (pictureBoxVideoStream == null)
@@ -85,7 +85,10 @@ namespace Proiect_audio_video
         private void pictureBoxVideoStream_MouseUp(object sender, MouseEventArgs e)
         {
             ROI.EndSelection(e.Location);
-            singleVideoPlayer.SetROI(ROI.Rect);
+            if (singleVideoPlayer != null)
+            {
+                singleVideoPlayer.SetROI(ROI.Rect);
+            }
 
         }
 
@@ -93,9 +96,10 @@ namespace Proiect_audio_video
         {
             ROI.DrawSelection(e.Graphics);
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
+            doubleVideoPlayer = new DoubleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
             singleVideoPlayer = new SingleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
         }
 
@@ -250,6 +254,19 @@ namespace Proiect_audio_video
         private void numericUpDownGamma_ValueChanged(object sender, EventArgs e)
         {
             gammaCorrectionApplier.SetGamma((double)numericUpDownGamma.Value);
+        }
+
+        private void twoVideosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormTwoVideos formTwoVideos = new FormTwoVideos();
+            formTwoVideos.Show();
+            this.Hide();
+        }
+
+        private void openTwoVideosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            playerType = PlayerType.DoubleVideoPlayer;
+            doubleVideoPlayer.LoadVideo();
         }
     }
 }
