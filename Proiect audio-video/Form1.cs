@@ -265,14 +265,6 @@ namespace Proiect_audio_video
         {
             gammaCorrectionApplier.SetGamma((double)numericUpDownGamma.Value);
         }
-
-        private void twoVideosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormTwoVideos formTwoVideos = new FormTwoVideos();
-            formTwoVideos.Show();
-            this.Hide();
-        }
-
         private void openTwoVideosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             playerType = PlayerType.TransitionVideoPlayer;
@@ -283,6 +275,13 @@ namespace Proiect_audio_video
         {
             playerType = PlayerType.VideoInVideoPlayer;
             videoInVideoPlayer.LoadVideo();
+        }
+
+        private void audioFormToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            FormAudio formAudio = new FormAudio();
+            formAudio.Show();
+            this.Hide();
         }
     }
 }

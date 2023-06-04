@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace Proiect_audio_video
 {
-    public partial class FormTwoVideos : Form
+    public partial class FormAudio : Form
     {
-        public FormTwoVideos()
+        public FormAudio()
         {
             InitializeComponent();
         }
 
-        private void oneVideoFormToolStripMenuItem_Click(object sender, EventArgs e)
+        private void videoFormToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
-            form.Show();
+            Form1 form1 = new Form1();
+            form1.Show();
             this.Hide();
         }
     }

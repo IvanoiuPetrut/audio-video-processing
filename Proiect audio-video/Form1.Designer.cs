@@ -32,6 +32,7 @@
             openFileToolStripMenuItem = new ToolStripMenuItem();
             twoVideosToolStripMenuItem = new ToolStripMenuItem();
             openTwoVideosToolStripMenuItem = new ToolStripMenuItem();
+            videoInVideoToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxVideoStream = new PictureBox();
             progressBarVideoStream = new ProgressBar();
             btnPlayVideo = new Button();
@@ -62,7 +63,7 @@
             Alpha = new Label();
             label5 = new Label();
             numericUpDownBetaBrightness = new NumericUpDown();
-            videoInVideoToolStripMenuItem = new ToolStripMenuItem();
+            audioFormToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).BeginInit();
@@ -78,7 +79,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { openFileToolStripMenuItem, twoVideosToolStripMenuItem, openTwoVideosToolStripMenuItem, videoInVideoToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { openFileToolStripMenuItem, twoVideosToolStripMenuItem, openTwoVideosToolStripMenuItem, videoInVideoToolStripMenuItem, audioFormToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
@@ -96,9 +97,7 @@
             // twoVideosToolStripMenuItem
             // 
             twoVideosToolStripMenuItem.Name = "twoVideosToolStripMenuItem";
-            twoVideosToolStripMenuItem.Size = new Size(137, 24);
-            twoVideosToolStripMenuItem.Text = "Two Videos Form";
-            twoVideosToolStripMenuItem.Click += twoVideosToolStripMenuItem_Click;
+            twoVideosToolStripMenuItem.Size = new Size(14, 24);
             // 
             // openTwoVideosToolStripMenuItem
             // 
@@ -106,6 +105,13 @@
             openTwoVideosToolStripMenuItem.Size = new Size(87, 24);
             openTwoVideosToolStripMenuItem.Text = "Transition";
             openTwoVideosToolStripMenuItem.Click += openTwoVideosToolStripMenuItem_Click;
+            // 
+            // videoInVideoToolStripMenuItem
+            // 
+            videoInVideoToolStripMenuItem.Name = "videoInVideoToolStripMenuItem";
+            videoInVideoToolStripMenuItem.Size = new Size(121, 24);
+            videoInVideoToolStripMenuItem.Text = "Video In Video";
+            videoInVideoToolStripMenuItem.Click += videoInVideoToolStripMenuItem_Click;
             // 
             // pictureBoxVideoStream
             // 
@@ -443,12 +449,12 @@
             numericUpDownBetaBrightness.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownBetaBrightness.ValueChanged += numericUpDownBetaBrightness_ValueChanged;
             // 
-            // videoInVideoToolStripMenuItem
+            // audioFormToolStripMenuItem
             // 
-            videoInVideoToolStripMenuItem.Name = "videoInVideoToolStripMenuItem";
-            videoInVideoToolStripMenuItem.Size = new Size(121, 24);
-            videoInVideoToolStripMenuItem.Text = "Video In Video";
-            videoInVideoToolStripMenuItem.Click += videoInVideoToolStripMenuItem_Click;
+            audioFormToolStripMenuItem.Name = "audioFormToolStripMenuItem";
+            audioFormToolStripMenuItem.Size = new Size(101, 24);
+            audioFormToolStripMenuItem.Text = "Audio Form";
+            audioFormToolStripMenuItem.Click += audioFormToolStripMenuItem_Click_1;
             // 
             // Form1
             // 
@@ -543,5 +549,6 @@
         private ToolStripMenuItem twoVideosToolStripMenuItem;
         private ToolStripMenuItem openTwoVideosToolStripMenuItem;
         private ToolStripMenuItem videoInVideoToolStripMenuItem;
+        private ToolStripMenuItem audioFormToolStripMenuItem;
     }
 }
