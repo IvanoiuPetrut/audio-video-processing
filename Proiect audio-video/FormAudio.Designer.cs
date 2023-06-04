@@ -51,9 +51,11 @@
             // 
             listBoxAudio.FormattingEnabled = true;
             listBoxAudio.ItemHeight = 20;
+            listBoxAudio.Items.AddRange(new object[] { "test1", "test2" });
             listBoxAudio.Location = new Point(12, 70);
             listBoxAudio.Name = "listBoxAudio";
-            listBoxAudio.Size = new Size(139, 204);
+            listBoxAudio.SelectionMode = SelectionMode.MultiExtended;
+            listBoxAudio.Size = new Size(356, 204);
             listBoxAudio.TabIndex = 0;
             // 
             // menuStrip1
@@ -71,6 +73,7 @@
             openAudioFilesToolStripMenuItem.Name = "openAudioFilesToolStripMenuItem";
             openAudioFilesToolStripMenuItem.Size = new Size(136, 24);
             openAudioFilesToolStripMenuItem.Text = "Open Audio Files";
+            openAudioFilesToolStripMenuItem.Click += openAudioFilesToolStripMenuItem_Click;
             // 
             // openVideoFilesToolStripMenuItem
             // 
@@ -91,7 +94,8 @@
             listBoxVideo.ItemHeight = 20;
             listBoxVideo.Location = new Point(12, 320);
             listBoxVideo.Name = "listBoxVideo";
-            listBoxVideo.Size = new Size(139, 204);
+            listBoxVideo.SelectionMode = SelectionMode.MultiExtended;
+            listBoxVideo.Size = new Size(356, 204);
             listBoxVideo.TabIndex = 2;
             // 
             // labelAudioFiles
@@ -116,17 +120,18 @@
             // 
             // btnPlayAudio
             // 
-            btnPlayAudio.Location = new Point(189, 70);
+            btnPlayAudio.Location = new Point(390, 67);
             btnPlayAudio.Margin = new Padding(3, 4, 3, 4);
             btnPlayAudio.Name = "btnPlayAudio";
             btnPlayAudio.Size = new Size(122, 48);
             btnPlayAudio.TabIndex = 7;
             btnPlayAudio.Text = "Play Audio";
             btnPlayAudio.UseVisualStyleBackColor = true;
+            btnPlayAudio.Click += btnPlayAudio_Click;
             // 
             // btnMixAudio
             // 
-            btnMixAudio.Location = new Point(189, 132);
+            btnMixAudio.Location = new Point(390, 129);
             btnMixAudio.Margin = new Padding(3, 4, 3, 4);
             btnMixAudio.Name = "btnMixAudio";
             btnMixAudio.Size = new Size(122, 48);
@@ -136,7 +141,7 @@
             // 
             // btnConcatenateAudio
             // 
-            btnConcatenateAudio.Location = new Point(189, 201);
+            btnConcatenateAudio.Location = new Point(390, 198);
             btnConcatenateAudio.Margin = new Padding(3, 4, 3, 4);
             btnConcatenateAudio.Name = "btnConcatenateAudio";
             btnConcatenateAudio.Size = new Size(122, 48);
@@ -146,7 +151,7 @@
             // 
             // btnAlternateAudio
             // 
-            btnAlternateAudio.Location = new Point(189, 269);
+            btnAlternateAudio.Location = new Point(390, 269);
             btnAlternateAudio.Margin = new Padding(3, 4, 3, 4);
             btnAlternateAudio.Name = "btnAlternateAudio";
             btnAlternateAudio.Size = new Size(122, 48);
@@ -157,7 +162,7 @@
             // labelPitch
             // 
             labelPitch.AutoSize = true;
-            labelPitch.Location = new Point(314, 267);
+            labelPitch.Location = new Point(515, 267);
             labelPitch.Name = "labelPitch";
             labelPitch.Size = new Size(76, 20);
             labelPitch.TabIndex = 12;
@@ -165,14 +170,14 @@
             // 
             // numericUpDownPitchLevel
             // 
-            numericUpDownPitchLevel.Location = new Point(317, 288);
+            numericUpDownPitchLevel.Location = new Point(518, 288);
             numericUpDownPitchLevel.Name = "numericUpDownPitchLevel";
             numericUpDownPitchLevel.Size = new Size(150, 27);
             numericUpDownPitchLevel.TabIndex = 13;
             // 
             // btnCombineAudiovideo
             // 
-            btnCombineAudiovideo.Location = new Point(189, 338);
+            btnCombineAudiovideo.Location = new Point(390, 338);
             btnCombineAudiovideo.Margin = new Padding(3, 4, 3, 4);
             btnCombineAudiovideo.Name = "btnCombineAudiovideo";
             btnCombineAudiovideo.Size = new Size(122, 48);
