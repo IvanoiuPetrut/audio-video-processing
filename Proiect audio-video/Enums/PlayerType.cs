@@ -9,6 +9,7 @@ namespace Proiect_audio_video.Enums
     public enum PlayerType
     {
         SingleVideoPlayer,
-        DoubleVideoPlayer
+        TransitionVideoPlayer,
+        VideoInVideoPlayer
     }
 }

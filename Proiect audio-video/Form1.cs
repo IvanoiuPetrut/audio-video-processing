@@ -21,7 +21,8 @@ namespace Proiect_audio_video
         RotateImage rotateImage = new RotateImage(0);
 
         SingleVideoPlayer singleVideoPlayer;
-        DoubleVideoPlayer doubleVideoPlayer;
+        TransitionVideoPlayer transitionVideoPlayer;
+        VideoInVideoPlayer videoInVideoPlayer;
 
         PlayerType playerType;
 
@@ -50,9 +51,13 @@ namespace Proiect_audio_video
             {
                 await singleVideoPlayer.PlayVideo(progress);
             }
-            else if (playerType == PlayerType.DoubleVideoPlayer)
+            else if (playerType == PlayerType.TransitionVideoPlayer)
             {
-                await doubleVideoPlayer.PlayVideo(progress);
+                await transitionVideoPlayer.PlayVideo(progress);
+            }
+            else if (playerType == PlayerType.VideoInVideoPlayer)
+            {
+                await videoInVideoPlayer.PlayVideo(progress);
             }
         }
 
@@ -85,9 +90,13 @@ namespace Proiect_audio_video
         private void pictureBoxVideoStream_MouseUp(object sender, MouseEventArgs e)
         {
             ROI.EndSelection(e.Location);
-            if (singleVideoPlayer != null)
+            if (playerType == PlayerType.SingleVideoPlayer)
             {
                 singleVideoPlayer.SetROI(ROI.Rect);
+            }
+            else if (playerType == PlayerType.VideoInVideoPlayer)
+            {
+                videoInVideoPlayer.SetROI(ROI.Rect);
             }
 
         }
@@ -96,11 +105,12 @@ namespace Proiect_audio_video
         {
             ROI.DrawSelection(e.Graphics);
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            doubleVideoPlayer = new DoubleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
+            transitionVideoPlayer = new TransitionVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
             singleVideoPlayer = new SingleVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
+            videoInVideoPlayer = new VideoInVideoPlayer(pictureBoxVideoStream.Width, pictureBoxVideoStream.Height);
         }
 
         private void radioButtonGrayscale_CheckedChanged(object sender, EventArgs e)
@@ -265,8 +275,14 @@ namespace Proiect_audio_video
 
         private void openTwoVideosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            playerType = PlayerType.DoubleVideoPlayer;
-            doubleVideoPlayer.LoadVideo();
+            playerType = PlayerType.TransitionVideoPlayer;
+            transitionVideoPlayer.LoadVideo();
+        }
+
+        private void videoInVideoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            playerType = PlayerType.VideoInVideoPlayer;
+            videoInVideoPlayer.LoadVideo();
         }
     }
 }

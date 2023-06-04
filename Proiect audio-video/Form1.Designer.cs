@@ -31,6 +31,7 @@
             menuStrip1 = new MenuStrip();
             openFileToolStripMenuItem = new ToolStripMenuItem();
             twoVideosToolStripMenuItem = new ToolStripMenuItem();
+            openTwoVideosToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxVideoStream = new PictureBox();
             progressBarVideoStream = new ProgressBar();
             btnPlayVideo = new Button();
@@ -61,7 +62,7 @@
             Alpha = new Label();
             label5 = new Label();
             numericUpDownBetaBrightness = new NumericUpDown();
-            openTwoVideosToolStripMenuItem = new ToolStripMenuItem();
+            videoInVideoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxVideoStream).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownScaleFactor).BeginInit();
@@ -77,7 +78,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { openFileToolStripMenuItem, twoVideosToolStripMenuItem, openTwoVideosToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { openFileToolStripMenuItem, twoVideosToolStripMenuItem, openTwoVideosToolStripMenuItem, videoInVideoToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
@@ -98,6 +99,13 @@
             twoVideosToolStripMenuItem.Size = new Size(137, 24);
             twoVideosToolStripMenuItem.Text = "Two Videos Form";
             twoVideosToolStripMenuItem.Click += twoVideosToolStripMenuItem_Click;
+            // 
+            // openTwoVideosToolStripMenuItem
+            // 
+            openTwoVideosToolStripMenuItem.Name = "openTwoVideosToolStripMenuItem";
+            openTwoVideosToolStripMenuItem.Size = new Size(87, 24);
+            openTwoVideosToolStripMenuItem.Text = "Transition";
+            openTwoVideosToolStripMenuItem.Click += openTwoVideosToolStripMenuItem_Click;
             // 
             // pictureBoxVideoStream
             // 
@@ -435,12 +443,12 @@
             numericUpDownBetaBrightness.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownBetaBrightness.ValueChanged += numericUpDownBetaBrightness_ValueChanged;
             // 
-            // openTwoVideosToolStripMenuItem
+            // videoInVideoToolStripMenuItem
             // 
-            openTwoVideosToolStripMenuItem.Name = "openTwoVideosToolStripMenuItem";
-            openTwoVideosToolStripMenuItem.Size = new Size(139, 24);
-            openTwoVideosToolStripMenuItem.Text = "Open Two Videos";
-            openTwoVideosToolStripMenuItem.Click += openTwoVideosToolStripMenuItem_Click;
+            videoInVideoToolStripMenuItem.Name = "videoInVideoToolStripMenuItem";
+            videoInVideoToolStripMenuItem.Size = new Size(121, 24);
+            videoInVideoToolStripMenuItem.Text = "Video In Video";
+            videoInVideoToolStripMenuItem.Click += videoInVideoToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -534,5 +542,6 @@
         private NumericUpDown numericUpDownBetaBrightness;
         private ToolStripMenuItem twoVideosToolStripMenuItem;
         private ToolStripMenuItem openTwoVideosToolStripMenuItem;
+        private ToolStripMenuItem videoInVideoToolStripMenuItem;
     }
 }

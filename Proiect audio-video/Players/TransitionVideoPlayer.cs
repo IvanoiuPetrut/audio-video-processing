@@ -11,15 +11,14 @@ using System.Threading.Tasks;
 
 namespace Proiect_audio_video.Players
 {
-    public class DoubleVideoPlayer : IVideoProcessor
+    public class TransitionVideoPlayer : IVideoProcessor
     {
         private Video firstVideo;
         private Video secondVideo;
         private bool isPlaying = false;
         private int fadeFrames = 25;
-        private int i = 0;
 
-        public DoubleVideoPlayer(int videoStreamWidth, int videoStreamHeight)
+        public TransitionVideoPlayer(int videoStreamWidth, int videoStreamHeight)
         {
             firstVideo = new Video();
             secondVideo = new Video();
