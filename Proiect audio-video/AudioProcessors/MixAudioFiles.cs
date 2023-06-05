@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_audio_video.AudioProcessors
 {
-    public class MixMultipleAudioFiles
+    public class MixAudioFiles
     {
-        public static void MixAudioFiles(List<string> filePaths, List<float> volumes, string outputFile)
+        public static void Mix(List<string> filePaths, List<float> volumes, string outputFile)
         {
             AudioFileReader[] audioFileReaders = new AudioFileReader[filePaths.Count];
             foreach ((string audioFile, int index) in filePaths.Select((path, index) => (path, index)))

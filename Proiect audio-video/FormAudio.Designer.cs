@@ -150,6 +150,7 @@
             btnConcatenateAudio.TabIndex = 9;
             btnConcatenateAudio.Text = "Concatenate Audio";
             btnConcatenateAudio.UseVisualStyleBackColor = true;
+            btnConcatenateAudio.Click += btnConcatenateAudio_Click;
             // 
             // btnAlternateAudio
             // 
