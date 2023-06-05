@@ -87,7 +87,7 @@ namespace Proiect_audio_video
 
         private void btnPitchUp_Click(object sender, EventArgs e)
         {
-            if(listBoxAudio.Items != null)
+            if (listBoxAudio.Items != null)
             {
                 string audioFile = listBoxAudio.SelectedItem.ToString();
                 string outputFile = "outputPitchUp.wav";
@@ -105,6 +105,25 @@ namespace Proiect_audio_video
                 PitchAudio.Pitch(audioFile, outputFile, 0.5f);
                 audio.Play(outputFile);
             }
+        }
+
+        private void btnCombineAudiovideo_Click(object sender, EventArgs e)
+        {
+            if (listBoxAudio.Items != null || listBoxVideo.Items != null)
+            {
+                string audioFile = listBoxAudio.SelectedItem.ToString();
+                string videoFile = listBoxVideo.SelectedItem.ToString();
+                string outputFile = "outputCombineAudioVideo.mp4";
+                labelTest.Text = audioFile + " " + videoFile + " " + outputFile;
+                AddAudioToVideo.Add(videoFile, audioFile, outputFile);
+            }
+        }
+
+        private void openVideoFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> videoFiles = OpenFiles.Open("Video Files|*.mp4;*.avi;*.mkv;*.mov;*.wmv|All Files|*.*");
+            listBoxVideo.Items.Clear();
+            listBoxVideo.Items.AddRange(videoFiles.ToArray());
         }
     }
 }

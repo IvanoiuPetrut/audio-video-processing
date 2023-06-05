@@ -79,6 +79,7 @@
             openVideoFilesToolStripMenuItem.Name = "openVideoFilesToolStripMenuItem";
             openVideoFilesToolStripMenuItem.Size = new Size(135, 24);
             openVideoFilesToolStripMenuItem.Text = "Open Video Files";
+            openVideoFilesToolStripMenuItem.Click += openVideoFilesToolStripMenuItem_Click;
             // 
             // videoFormToolStripMenuItem
             // 
@@ -170,6 +171,7 @@
             btnCombineAudiovideo.TabIndex = 14;
             btnCombineAudiovideo.Text = "Combine Audio Video";
             btnCombineAudiovideo.UseVisualStyleBackColor = true;
+            btnCombineAudiovideo.Click += btnCombineAudiovideo_Click;
             // 
             // labelTest
             // 
