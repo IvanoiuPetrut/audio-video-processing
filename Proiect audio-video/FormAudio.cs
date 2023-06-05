@@ -1,4 +1,6 @@
-﻿using Proiect_audio_video.Models;
+﻿using Proiect_audio_video.AudioProcessors;
+using Proiect_audio_video.Models;
+using Proiect_audio_video.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ namespace Proiect_audio_video
 {
     public partial class FormAudio : Form
     {
+        Audio audio = new Audio();
         public FormAudio()
         {
             InitializeComponent();
@@ -25,41 +28,46 @@ namespace Proiect_audio_video
             this.Hide();
         }
 
-        public List<string> SelectAudioFiles()
-        {
-            List<string> audioFiles = new List<string>();
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Audio Files|*.mp3;*.wav;*.ogg|All Files|*.*";
-
-            DialogResult dialogResult = openFileDialog.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                audioFiles.AddRange(openFileDialog.FileNames);
-            }
-
-            return audioFiles;
-        }
-
-        public void DisplayAudioFiles(List<string> audioFiles)
-        {
-            // Assuming you have a ListBox control named "listBoxAudioFiles" on your form
-            listBoxAudio.Items.Clear();
-            listBoxAudio.Items.AddRange(audioFiles.ToArray());
-        }
         private void openAudioFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<string> audioFiles = SelectAudioFiles();
-            DisplayAudioFiles(audioFiles);
+            List<string> audioFiles = SelectAudioFiles.SelectFiles();
+            listBoxAudio.Items.Clear();
+            listBoxAudio.Items.AddRange(audioFiles.ToArray());
+
         }
 
         private void btnPlayAudio_Click(object sender, EventArgs e)
         {
-            //get selected audio from listbox
-            string audioFile = listBoxAudio.SelectedItem.ToString();
-            Audio audio = new Audio();
-            audio.Play(audioFile);
+            if (listBoxAudio.Items != null)
+            {
+                string audioFile = listBoxAudio.SelectedItem.ToString();
+                audio.Play(audioFile);
+            }
+        }
+
+        private void btnMixAudio_Click(object sender, EventArgs e)
+        {
+            if (listBoxAudio.Items != null)
+            {
+                List<string> audioFiles = new List<string>();
+                List<float> volumes = new List<float>();
+                foreach ((string audioFile, int index) in listBoxAudio.Items.Cast<string>().Select((path, index) => (path, index)))
+                {
+                    labelTest.Text = labelTest.Text + " " + audioFile + "";
+                    audioFiles.Add(audioFile);
+                    if (index % 2 == 0)
+                    {
+                        volumes.Add(0.45f);
+                    }
+                    else
+                    {
+                        volumes.Add(0.20f);
+                    }
+                }
+                string outputFile = "output.wav";
+                MixMultipleAudioFiles.MixAudioFiles(audioFiles, volumes, outputFile);
+                audio.Play(outputFile);
+            }
         }
     }
 }

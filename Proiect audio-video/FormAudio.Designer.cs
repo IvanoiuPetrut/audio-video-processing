@@ -43,6 +43,7 @@
             labelPitch = new Label();
             numericUpDownPitchLevel = new NumericUpDown();
             btnCombineAudiovideo = new Button();
+            labelTest = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPitchLevel).BeginInit();
             SuspendLayout();
@@ -138,6 +139,7 @@
             btnMixAudio.TabIndex = 8;
             btnMixAudio.Text = "Mix Audio";
             btnMixAudio.UseVisualStyleBackColor = true;
+            btnMixAudio.Click += btnMixAudio_Click;
             // 
             // btnConcatenateAudio
             // 
@@ -185,11 +187,21 @@
             btnCombineAudiovideo.Text = "Combine Audio Video";
             btnCombineAudiovideo.UseVisualStyleBackColor = true;
             // 
+            // labelTest
+            // 
+            labelTest.AutoSize = true;
+            labelTest.Location = new Point(573, 73);
+            labelTest.Name = "labelTest";
+            labelTest.Size = new Size(33, 20);
+            labelTest.TabIndex = 15;
+            labelTest.Text = "test";
+            // 
             // FormAudio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(856, 536);
+            Controls.Add(labelTest);
             Controls.Add(btnCombineAudiovideo);
             Controls.Add(numericUpDownPitchLevel);
             Controls.Add(labelPitch);
@@ -229,5 +241,6 @@
         private Label labelPitch;
         private NumericUpDown numericUpDownPitchLevel;
         private Button btnCombineAudiovideo;
+        private Label labelTest;
     }
 }
