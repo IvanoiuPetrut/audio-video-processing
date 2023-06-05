@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Proiect_audio_video.AudioProcessors
 {
-    public class MixAudioFiles
+    public class MixAudio
     {
         public static void Mix(List<string> filePaths, List<float> volumes, string outputFile)
         {

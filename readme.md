@@ -13,5 +13,5 @@
 12. ✔ Button to select 3 audio files and 1 video.
 13. ✔ Mix the first 2 audio files into 1 (they should have same length) (first one should have 0.45 input, second one should be 0.35)
 14. ✔ The output concatenate with the third audio selected. Then Concatenate the 2 audio files with implementing cross fading (fade out first audio when it finishes / fade in second audio when it starts)
-15. Change the pitch level of the generated audio with one octave up OR one octave down
+15. ✔ Change the pitch level of the generated audio with one octave up OR one octave down
 16. The generated audio file should be added as sound to the video

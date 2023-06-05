@@ -65,7 +65,7 @@ namespace Proiect_audio_video
                     }
                 }
                 string outputFile = "outputMix.wav";
-                MixAudioFiles.Mix(audioFiles, volumes, outputFile);
+                MixAudio.Mix(audioFiles, volumes, outputFile);
                 audio.Play(outputFile);
             }
         }
@@ -81,6 +81,28 @@ namespace Proiect_audio_video
                 }
                 string outputFile = "outputConcatenateCrossFade.wav";
                 ConcatenateAudio.ConcatenateAudioFilesWithCrossFade(outputFile, audioFiles.ToArray());
+                audio.Play(outputFile);
+            }
+        }
+
+        private void btnPitchUp_Click(object sender, EventArgs e)
+        {
+            if(listBoxAudio.Items != null)
+            {
+                string audioFile = listBoxAudio.SelectedItem.ToString();
+                string outputFile = "outputPitchUp.wav";
+                PitchAudio.Pitch(audioFile, outputFile, 2.0f);
+                audio.Play(outputFile);
+            }
+        }
+
+        private void btnPitchDown_Click(object sender, EventArgs e)
+        {
+            if (listBoxAudio.Items != null)
+            {
+                string audioFile = listBoxAudio.SelectedItem.ToString();
+                string outputFile = "outputPitchDown.wav";
+                PitchAudio.Pitch(audioFile, outputFile, 0.5f);
                 audio.Play(outputFile);
             }
         }

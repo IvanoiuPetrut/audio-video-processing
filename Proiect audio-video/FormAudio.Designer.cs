@@ -39,13 +39,11 @@
             btnPlayAudio = new Button();
             btnMixAudio = new Button();
             btnConcatenateAudio = new Button();
-            btnAlternateAudio = new Button();
-            labelPitch = new Label();
-            numericUpDownPitchLevel = new NumericUpDown();
+            btnPitchUp = new Button();
             btnCombineAudiovideo = new Button();
             labelTest = new Label();
+            btnPitchDown = new Button();
             menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPitchLevel).BeginInit();
             SuspendLayout();
             // 
             // listBoxAudio
@@ -152,35 +150,20 @@
             btnConcatenateAudio.UseVisualStyleBackColor = true;
             btnConcatenateAudio.Click += btnConcatenateAudio_Click;
             // 
-            // btnAlternateAudio
+            // btnPitchUp
             // 
-            btnAlternateAudio.Location = new Point(390, 269);
-            btnAlternateAudio.Margin = new Padding(3, 4, 3, 4);
-            btnAlternateAudio.Name = "btnAlternateAudio";
-            btnAlternateAudio.Size = new Size(122, 48);
-            btnAlternateAudio.TabIndex = 10;
-            btnAlternateAudio.Text = "Alternate Audio";
-            btnAlternateAudio.UseVisualStyleBackColor = true;
-            // 
-            // labelPitch
-            // 
-            labelPitch.AutoSize = true;
-            labelPitch.Location = new Point(515, 267);
-            labelPitch.Name = "labelPitch";
-            labelPitch.Size = new Size(76, 20);
-            labelPitch.TabIndex = 12;
-            labelPitch.Text = "Pitch level";
-            // 
-            // numericUpDownPitchLevel
-            // 
-            numericUpDownPitchLevel.Location = new Point(518, 288);
-            numericUpDownPitchLevel.Name = "numericUpDownPitchLevel";
-            numericUpDownPitchLevel.Size = new Size(150, 27);
-            numericUpDownPitchLevel.TabIndex = 13;
+            btnPitchUp.Location = new Point(390, 269);
+            btnPitchUp.Margin = new Padding(3, 4, 3, 4);
+            btnPitchUp.Name = "btnPitchUp";
+            btnPitchUp.Size = new Size(122, 48);
+            btnPitchUp.TabIndex = 10;
+            btnPitchUp.Text = "Pitch Up";
+            btnPitchUp.UseVisualStyleBackColor = true;
+            btnPitchUp.Click += btnPitchUp_Click;
             // 
             // btnCombineAudiovideo
             // 
-            btnCombineAudiovideo.Location = new Point(390, 338);
+            btnCombineAudiovideo.Location = new Point(390, 399);
             btnCombineAudiovideo.Margin = new Padding(3, 4, 3, 4);
             btnCombineAudiovideo.Name = "btnCombineAudiovideo";
             btnCombineAudiovideo.Size = new Size(122, 48);
@@ -197,16 +180,26 @@
             labelTest.TabIndex = 15;
             labelTest.Text = "test";
             // 
+            // btnPitchDown
+            // 
+            btnPitchDown.Location = new Point(390, 337);
+            btnPitchDown.Margin = new Padding(3, 4, 3, 4);
+            btnPitchDown.Name = "btnPitchDown";
+            btnPitchDown.Size = new Size(122, 48);
+            btnPitchDown.TabIndex = 16;
+            btnPitchDown.Text = "Pitch Down";
+            btnPitchDown.UseVisualStyleBackColor = true;
+            btnPitchDown.Click += btnPitchDown_Click;
+            // 
             // FormAudio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(856, 536);
+            Controls.Add(btnPitchDown);
             Controls.Add(labelTest);
             Controls.Add(btnCombineAudiovideo);
-            Controls.Add(numericUpDownPitchLevel);
-            Controls.Add(labelPitch);
-            Controls.Add(btnAlternateAudio);
+            Controls.Add(btnPitchUp);
             Controls.Add(btnConcatenateAudio);
             Controls.Add(btnMixAudio);
             Controls.Add(btnPlayAudio);
@@ -220,7 +213,6 @@
             Text = "FormAudio";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPitchLevel).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -238,10 +230,9 @@
         private Button btnPlayAudio;
         private Button btnMixAudio;
         private Button btnConcatenateAudio;
-        private Button btnAlternateAudio;
-        private Label labelPitch;
-        private NumericUpDown numericUpDownPitchLevel;
+        private Button btnPitchUp;
         private Button btnCombineAudiovideo;
         private Label labelTest;
+        private Button btnPitchDown;
     }
 }
