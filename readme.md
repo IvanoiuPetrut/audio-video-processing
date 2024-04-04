@@ -1,17 +1,40 @@
-1. ✔ Button load / play video + how many buttons (or different ways of implementing right click / menu / tab etc..)
-2. ✔ Select ROI (an the first frame of the video). If no ROI is selected the operations are going to be applied on the entire video
-3. ✔ Convert ROI to grayscale
-   Extract only a specific color from ROI (see only R or G or B component)
-4. ✔ Make video ROI in "carousel" mode: first frame convert to gray scale, second frame see only R component, third frame see only G component, fourth frame see only B component, fifth frame again grayscale, etc..
-5. ✔ Apply brightness correction / gamma corrections ROI
-6. Apply background subtraction to ROI and replace it with a specified picture
-7. ✔ Adjust color space/map on ROI
-8. ✔ Resize/Rotate on ROI
-9. ✔ Button to select 2 videos and unite them with the following transitions:
-10. ✔ cross-dissolve (addWeigthed last 10 frames from previous video with first 10 from next Video)
-11. ✔ Video combining - play first video and on top of it (in a smaller window) play the second video (video in video)
-12. ✔ Button to select 3 audio files and 1 video.
-13. ✔ Mix the first 2 audio files into 1 (they should have same length) (first one should have 0.45 input, second one should be 0.35)
-14. ✔ The output concatenate with the third audio selected. Then Concatenate the 2 audio files with implementing cross fading (fade out first audio when it finishes / fade in second audio when it starts)
-15. ✔ Change the pitch level of the generated audio with one octave up OR one octave down
-16. The generated audio file should be added as sound to the video
+# Audio-Video Processing
+
+This application allows the user to load video or audio files and apply different operations to them, like gamma correction, etc. On the video part the operations can be applied to a ROI (Region of Interest). All the features will be listed down.
+
+<a href="https://weather.petrut.dev/"> Demo of the working application. </a>
+
+<p align="center">
+  <img src="https://i.imgur.com/LBesLB3.png" alt="Photo of the presentation of the project"/>
+  <img src="https://i.imgur.com/ScGql1p.png" alt="Photo of the presentation of the project"/>
+</p>
+
+## Features
+
+- Button to load/play video
+- Select Region of Interest (ROI) in the first frame of the video
+- Convert ROI to grayscale
+- Extract specific color component (R, G, or B) from ROI
+- Carousel mode for video ROI: alternating grayscale and color components
+- Apply brightness correction/gamma correction to ROI
+- Background subtraction on ROI with replacement by a specified picture
+- Adjust color space/map on ROI
+- Resize/Rotate ROI
+- Button to select and unite two videos with cross-dissolve transition
+- Video combining: play one video with another overlaid in a smaller window (video in video)
+- Button to select three audio files and one video
+- Mix the first two audio files into one with specified input levels
+- Concatenate output with the third selected audio, implementing cross-fading between audio tracks
+- Change the pitch level of the generated audio by one octave up or down
+- Add the generated audio file as sound to the video
+
+## Technologies
+
+- C#
+- EmguCV (C# wrapper for OpenCV)
+- .NET Framework
+- WinForms or WPF for the GUI
+- DirectX or OpenGL for video rendering
+- Audio libraries like NAudio for audio processing
+- File I/O for handling video and audio files
+- Utilization of events for handling user interactions and asynchronous processing
