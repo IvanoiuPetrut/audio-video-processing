@@ -2,7 +2,7 @@
 
 This application allows the user to load video or audio files and apply different operations to them, like gamma correction, etc. On the video part the operations can be applied to a ROI (Region of Interest). All the features will be listed down.
 
-<a href="https://weather.petrut.dev/"> Demo of the working application. </a>
+<a href="./final.mp4"> Demo of the working application. </a>
 
 <p align="center">
   <img src="https://i.imgur.com/LBesLB3.png" alt="Photo of the presentation of the project"/>
